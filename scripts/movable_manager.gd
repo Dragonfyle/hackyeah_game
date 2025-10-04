@@ -2,10 +2,19 @@ extends Node
 
 var active_movables: Array[Movable] = []
 
-func spawn(movable: Movable, spawn_position: Vector2) -> Movable:
+func spawn(movable: Movable, spawn_position: Vector2, lifetime_sec: int = -1) -> Movable:
 	movable.position = spawn_position
 	get_tree().current_scene.add_child(movable)
 	active_movables.append(movable)
+
+	# automatic despawn
+	if lifetime_sec > 0:
+		var timer = Timer.new()
+		timer.wait_time = lifetime_sec
+		timer.one_shot = true
+		timer.timeout.connect(func(): despawn(movable))
+		movable.add_child(timer)
+		timer.start()
 
 	return movable
 
