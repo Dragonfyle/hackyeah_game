@@ -4,8 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://bci3mp0k07a8n" path="res://icon.svg" id="2_a1anb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7jjw"]
+radius = 64.0
 
 [node name="Movable" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 1
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("1_m2iqe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
