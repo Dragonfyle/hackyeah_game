@@ -1,5 +1,5 @@
 class_name Flyable
-extends Sprite2D
+extends RigidBody2D
 
 var speed: float
 var velocity: Vector2
