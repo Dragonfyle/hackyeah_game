@@ -7,6 +7,11 @@ const WALL_MARGIN = 100  # Odległość od krawędzi gdzie spawnują się pocisk
 func _ready() -> void:
 	spawn_projectile_from_edge()
 
+	var player = get_node("Player")
+	if player:
+		player.movement_stopped.connect(_on_player_stopped)
+		player.movement_started.connect(_on_player_started)
+
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/projectile.png"),
@@ -71,3 +76,9 @@ func spawn_projectile_from_edge() -> Movable:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		spawn_projectile_from_edge()
+
+func _on_player_stopped() -> void:
+	MovableManager.pause_all()
+
+func _on_player_started() -> void:
+	MovableManager.resume_all()
