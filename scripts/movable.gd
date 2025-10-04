@@ -33,6 +33,8 @@ func set_direction(direction: Vector2) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		split_projectile()
+	if body is CharacterBody2D:
+		$AudioStreamPlayer2D.play()
 
 
 func split_projectile() -> void:
