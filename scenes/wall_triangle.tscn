@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca4d1x3ubewsu"]
+
+[ext_resource type="Texture2D" uid="uid://c7dnlgwtaw473" path="res://assets/wall_triangle.png" id="1_xnhm5"]
+
+[node name="wall_triangle" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, -6)
+texture = ExtResource("1_xnhm5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(3, -142)
+scale = Vector2(1, 1.6634241)
+polygon = PackedVector2Array(-9, -51.700584, 8, -55.908775, 172, 204.99884, 161, 217.6234, -161, 217.02223, -167, 198.52576)
