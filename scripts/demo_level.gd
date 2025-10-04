@@ -47,9 +47,8 @@ func spawn_projectile_from_edge() -> Movable:
 	var edge = randi() % 4  # 0=lewo, 1=prawo, 2=góra, 3=dół
 	var spawn_pos: Vector2
 	var direction: Vector2
-	var center = Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
-	direction = (center - Vector2(0, 0)).normalized()
+	var center = Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
 	# match edge:
 	# 	0:  # Lewa krawędź
@@ -65,7 +64,12 @@ func spawn_projectile_from_edge() -> Movable:
 	# 		spawn_pos = Vector2(randf() * SCREEN_WIDTH, SCREEN_HEIGHT - WALL_MARGIN)
 	# 		direction = (center - spawn_pos).normalized()
 
-	return spawn_projectile(Vector2(0, 0), direction)
+	print("Spawn position: ", spawn_pos)
+	print("Direction: ", direction)
+
+	direction = (center - Vector2(200, 200)).normalized()
+
+	return spawn_projectile(Vector2(200, 200), direction)
 
 # Przykład: spawn pocisku na kliknięcie
 func _input(event: InputEvent) -> void:
