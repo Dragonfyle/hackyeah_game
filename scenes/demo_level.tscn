@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://d0mco1flblvnt"]
+[gd_scene load_steps=14 format=4 uid="uid://ds0b1i8v4nitv"]
 
-[ext_resource type="Script" path="res://scripts/demo_level.gd" id="1_etyyu"]
+[ext_resource type="Script" uid="uid://harwdb0ja3jh" path="res://scripts/demo_level.gd" id="1_etyyu"]
 [ext_resource type="Shader" uid="uid://cxlutvjtdmdk8" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
 [ext_resource type="Texture2D" uid="uid://owtvcn0gse5b" path="res://assets/tileset.png" id="2_fxo6y"]
 [ext_resource type="Texture2D" uid="uid://kpje5q6k2s6l" path="res://assets/bg.png" id="3_fxo6y"]
-[ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="5_0bg5e"]
 [ext_resource type="Script" uid="uid://c04vnimchvbmu" path="res://scripts/waypoint.gd" id="6_i46ye"]
 [ext_resource type="Texture2D" uid="uid://orwg3kghkhtm" path="res://assets/brain.png" id="7_freo2"]
 
@@ -575,7 +575,7 @@ position = Vector2(632, 560)
 polygon = PackedVector2Array(-952, -48, -888, -48, -832, -24, -808, -24, -792, -40, -760, -40, -736, -40, -704, -40, -640, -48, -568, -32, -504, -40, -472, -48, -408, -48, -336, -32, -288, -32, -248, -48, -184, -32, -112, -40, -88, -48, -32, -48, 40, -32, 72, -32, 136, -48, 200, -40, 264, -48, 328, -32, 392, -40, 432, -48, 488, -48, 552, -40, 648, -48, 712, -32, 776, -40, 800, -48, 968, -48, 968, 16, -1016, 16, -1016, -48)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(607, 32)
+position = Vector2(-249, -665)
 zoom = Vector2(0.97, 1)
 
 [node name="Bg" type="Sprite2D" parent="."]

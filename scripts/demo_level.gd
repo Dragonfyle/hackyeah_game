@@ -3,7 +3,6 @@ extends Node2D
 const PLAYABLE_WIDTH = 1936
 const PLAYABLE_HEIGHT = 1024
 const WALL_MARGIN = 100  # Odległość od krawędzi gdzie spawnują się pociski
-const PLAYABLE_CENTER = Vector2(608, 48)  # Center of playable area based on wall positions
 
 func _ready() -> void:
 	spawn_projectile_from_edge()
@@ -49,20 +48,22 @@ func spawn_projectile_from_edge() -> Movable:
 	# Use camera viewport for spawning at visible edges
 	var camera = $Camera2D
 	var viewport_size = get_viewport_rect().size / camera.zoom
+	var playable_center = Vector2(camera.position.x, camera.position.y)
+
 
 	match edge:
 		0:  # Lewa krawędź
-			spawn_pos = Vector2(PLAYABLE_CENTER.x - viewport_size.x/2.0 + WALL_MARGIN, PLAYABLE_CENTER.y + randf_range(-viewport_size.y/2.0, viewport_size.y/2.0) + WALL_MARGIN)
-			direction = (PLAYABLE_CENTER - spawn_pos).normalized()
+			spawn_pos = Vector2(playable_center.x - viewport_size.x/2.0 + WALL_MARGIN, playable_center.y + randf_range(-viewport_size.y/2.0, viewport_size.y/2.0) + WALL_MARGIN)
+			direction = (playable_center - spawn_pos).normalized()
 		1:  # Prawa krawędź
-			spawn_pos = Vector2(PLAYABLE_CENTER.x + viewport_size.x/2.0 - WALL_MARGIN, PLAYABLE_CENTER.y + randf_range(-viewport_size.y/2.0, viewport_size.y/2.0) + WALL_MARGIN)
-			direction = (PLAYABLE_CENTER - spawn_pos).normalized()
+			spawn_pos = Vector2(playable_center.x + viewport_size.x/2.0 - WALL_MARGIN, playable_center.y + randf_range(-viewport_size.y/2.0, viewport_size.y/2.0) + WALL_MARGIN)
+			direction = (playable_center - spawn_pos).normalized()
 		2:  # Górna krawędź
-			spawn_pos = Vector2(PLAYABLE_CENTER.x + randf_range(-viewport_size.x/2.0, viewport_size.x/2.0) + WALL_MARGIN, PLAYABLE_CENTER.y + viewport_size.y/2.0 - WALL_MARGIN)
-			direction = (PLAYABLE_CENTER - spawn_pos).normalized()
+			spawn_pos = Vector2(playable_center.x + randf_range(-viewport_size.x/2.0, viewport_size.x/2.0) + WALL_MARGIN, playable_center.y + viewport_size.y/2.0 - WALL_MARGIN)
+			direction = (playable_center - spawn_pos).normalized()
 		3:  # Dolna krawędź
-			spawn_pos = Vector2(PLAYABLE_CENTER.x + randf_range(-viewport_size.x/2.0, viewport_size.x/2.0) + WALL_MARGIN, PLAYABLE_CENTER.y - viewport_size.y/2.0 + WALL_MARGIN)
-			direction = (PLAYABLE_CENTER - spawn_pos).normalized()
+			spawn_pos = Vector2(playable_center.x + randf_range(-viewport_size.x/2.0, viewport_size.x/2.0) + WALL_MARGIN, playable_center.y - viewport_size.y/2.0 + WALL_MARGIN)
+			direction = (playable_center - spawn_pos).normalized()
 
 	return spawn_projectile(spawn_pos, direction)
 
