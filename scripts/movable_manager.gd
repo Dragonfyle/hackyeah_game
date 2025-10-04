@@ -1,14 +1,19 @@
 extends Node
 
 var active_movables: Array[Movable] = []
+var is_paused: bool = false
 
 func spawn(movable: Movable, spawn_position: Vector2, lifetime_sec: int = -1) -> Movable:
 	movable.position = spawn_position
-	
+
 	# Use call_deferred to avoid physics callback issues
 	get_tree().current_scene.call_deferred("add_child", movable)
-	
+
 	active_movables.append(movable)
+
+	# If currently paused, pause the newly spawned movable
+	if is_paused:
+		movable.call_deferred("pause")
 
 	# automatic despawn
 	if lifetime_sec > 0:
@@ -39,9 +44,11 @@ func get_active_count() -> int:
 	return active_movables.size()
 
 func pause_all() -> void:
+	is_paused = true
 	for movable in active_movables:
 		movable.pause()
 
 func resume_all() -> void:
+	is_paused = false
 	for movable in active_movables:
 		movable.resume()
