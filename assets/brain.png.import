@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://owtvcn0gse5b"
-path="res://.godot/imported/tileset.png-c50288acd069fa293d7940a084811264.ctex"
+uid="uid://orwg3kghkhtm"
+path="res://.godot/imported/brain.png-271941cc429380311663f60bc6c1f0b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tileset.png"
-dest_files=["res://.godot/imported/tileset.png-c50288acd069fa293d7940a084811264.ctex"]
+source_file="res://assets/brain.png"
+dest_files=["res://.godot/imported/brain.png-271941cc429380311663f60bc6c1f0b7.ctex"]
 
 [params]
 

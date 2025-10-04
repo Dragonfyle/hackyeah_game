@@ -73,4 +73,3 @@ func _physics_process(delta: float) -> void:
 
 	# update was_moving flag for next frame
 	_was_moving = is_moving_now
-
