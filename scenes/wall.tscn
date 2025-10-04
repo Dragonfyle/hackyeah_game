@@ -23,4 +23,6 @@ offset_right = 33.0
 offset_bottom = 33.0
 texture = ExtResource("2_2ktk7")
 patch_margin_left = 18
+patch_margin_top = 18
 patch_margin_right = 18
+patch_margin_bottom = 18
