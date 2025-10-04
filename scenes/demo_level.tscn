@@ -585,7 +585,7 @@ position = Vector2(-240, -672)
 texture = ExtResource("3_fxo6y")
 
 [node name="Player" parent="." instance=ExtResource("5_0bg5e")]
-position = Vector2(-251, -659)
+position = Vector2(-1875, -613)
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2(574, -1074)
