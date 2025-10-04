@@ -1,4 +1,4 @@
-class_name Flyable
+class_name Movable
 extends RigidBody2D
 
 var speed: float
