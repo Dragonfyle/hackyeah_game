@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://duk6jtds2icjt"]
 
 [ext_resource type="Script" uid="uid://dpoj2cgnvne12" path="res://scripts/wall_ui.gd" id="1_wykyb"]
+[ext_resource type="Texture2D" uid="uid://cc3foj1ptame" path="res://assets/wall_bg.png" id="2_2ktk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh6kn"]
 size = Vector2(64, 64)
-
-[sub_resource type="ImageTexture" id="ImageTexture_uvhfp"]
 
 [node name="Wall" type="StaticBody2D" node_paths=PackedStringArray("panel")]
 script = ExtResource("1_wykyb")
 panel = NodePath("NinePatchRect")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2ktk7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_oh6kn")
@@ -21,8 +21,8 @@ offset_left = -32.0
 offset_top = -32.0
 offset_right = 33.0
 offset_bottom = 33.0
-texture = SubResource("ImageTexture_uvhfp")
-patch_margin_left = 10
-patch_margin_top = 10
-patch_margin_right = 10
-patch_margin_bottom = 10
+texture = ExtResource("2_2ktk7")
+patch_margin_left = 18
+patch_margin_top = 18
+patch_margin_right = 18
+patch_margin_bottom = 18
