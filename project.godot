@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-FlyableManager="*res://scripts/flyable_manager.gd"
+MovableManager="*res://scripts/movable_manager.gd"
 
 [display]
 
