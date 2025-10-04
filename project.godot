@@ -11,18 +11,19 @@ config_version=5
 [application]
 
 config/name="hackyeah_game"
-run/main_scene="uid://duk6jtds2icjt"
+run/main_scene="uid://d0mco1flblvnt"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-FlyableManager="*res://scripts/flyable_manager.gd"
+MovableManager="*res://scripts/movable_manager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+display_server/driver.linuxbsd="wayland"
 
 [dotnet]
 
