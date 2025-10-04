@@ -17,7 +17,6 @@ func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2,
 	self.projectile_speed = new_speed
 	self.projectile_velocity = new_velocity
 	self.gravity_scale = 0.0
-	print('rotation on setup', self.rotation)
 
 func _ready() -> void:
 	if projectile_velocity != Vector2.ZERO:
@@ -31,15 +30,12 @@ func set_direction(direction: Vector2) -> void:
 	self.rotation = direction.angle()
 
 func _on_body_entered(body: Node) -> void:
-	print('body.name', body.name)	# Sprawdź czy to kolizja ze ścianą (StaticBody2D lub Area2D) i czy nie przetworzyliśmy już tej kolizji
 	if body is StaticBody2D:
-		print('rotation on body_entered', self.rotation)
 		split_projectile()
 
 
 func split_projectile() -> void:
 	if scale_factor <= min_scale:
-		print("Too small, despawning instead of splitting")
 		call_deferred("_deferred_despawn")
 		return
 

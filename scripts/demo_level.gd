@@ -6,7 +6,6 @@ const WALL_MARGIN = 100  # Odległość od krawędzi gdzie spawnują się pocisk
 const PLAYABLE_CENTER = Vector2(608, 48)  # Center of playable area based on wall positions
 
 func _ready() -> void:
-	print('Spawning projectile...')
 	spawn_projectile_from_edge()
 
 var types_of_projectiles: Array[Dictionary] = [
@@ -38,9 +37,7 @@ func spawn_projectile(spawn_pos: Vector2, direction: Vector2) -> Movable:
 
 	# Ustawienie kierunku (może być potrzebne do aktualizacji rotacji)
 	pocisk.set_direction(direction)
-	
-	print("Active projectiles: ", MovableManager.get_active_count())
-	
+		
 	return pocisk
 
 # Spawn pocisku z losowej krawędzi ekranu, skierowanego do środka
