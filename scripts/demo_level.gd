@@ -17,11 +17,11 @@ func _ready() -> void:
 
 var types_of_projectiles: Array[Dictionary] = [
 	{
-		"texture": preload("res://assets/projectile.png"),
+		"texture": preload("res://assets/sperm_cell.png"),
 		"speed": 700.0,
 	},
 	{
-		"texture": preload("res://assets/projectile.png"),
+		"texture": preload("res://assets/sperm_cell.png"),
 		"speed": 1000.0,
 	},
 ]
