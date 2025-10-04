@@ -6,18 +6,24 @@ extends RigidBody2D
 
 var projectile_speed: float
 var projectile_velocity: Vector2
-var scale_factor: float = 1.0  # Skala pocisku (zmniejsza się przy podziale)
-var min_scale: float = 0.25  # Minimalna skala przed usunięciem
+var scale_factor: float = 2.0  # Skala pocisku (zmniejsza się przy podziale)
+var min_scale: float = 0.5  # Minimalna skala przed usunięciem
 var _stored_velocity: Vector2 = Vector2.ZERO  # For pause/resume
 
-func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2, initial_scale: float = 1.0) -> void:
+func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2, initial_scale: float = 2.0) -> void:
 	self.scale_factor = initial_scale
 	$Sprite2D.texture = texture_resource
-	$Sprite2D.scale = Vector2(initial_scale * 3, initial_scale * 3)
-	$CollisionShape2D.scale = Vector2(initial_scale * 3, initial_scale * 3)
+	$Sprite2D.scale = Vector2(initial_scale, initial_scale)
+	$CollisionShape2D.scale = Vector2(initial_scale, initial_scale)
 	self.projectile_speed = new_speed
 	self.projectile_velocity = new_velocity
 	self.gravity_scale = 0.0
+
+	# Rotate the sprite to match the velocity direction
+	if new_velocity.length() > 0.0:
+		$Sprite2D.rotation = new_velocity.angle() + 135
+	# Debug log
+	print("Movable.setup: Rotating sprite to angle: ", new_velocity.angle(), " and ", $Sprite2D.rotation)
 
 func _ready() -> void:
 	if projectile_velocity != Vector2.ZERO:
@@ -29,6 +35,7 @@ func set_direction(direction: Vector2) -> void:
 	self.projectile_velocity = direction.normalized() * self.projectile_speed
 	linear_velocity = self.projectile_velocity
 	self.rotation = direction.angle()
+	$Sprite2D.rotation = direction.angle()
 
 func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
