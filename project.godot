@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="hackyeah_game"
+run/main_scene="uid://d0mco1flblvnt"
 run/main_scene="uid://dgb5b72kdw4l6"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"

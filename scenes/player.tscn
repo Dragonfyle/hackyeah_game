@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgb5b72kdw4l6"]
+[gd_scene load_steps=6 format=3 uid="uid://dgb5b72kdw4l6"]
 
 [ext_resource type="Script" uid="uid://dsxe37ha70b37" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://bci3mp0k07a8n" path="res://icon.svg" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://cwg2hagak71dc" path="res://assets/leaf.png" id="2_g2els"]
+[ext_resource type="Shader" uid="uid://chbk04qsd68hk" path="res://scenes/player.gdshader" id="2_qhqgy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
-size = Vector2(128, 128)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqkch"]
+shader = ExtResource("2_qhqgy")
+shader_parameter/burst_progress = 0.082000003895
+shader_parameter/spread_strength = 0.0
+shader_parameter/distortion_strength = 0.1970000093575
+shader_parameter/fade_start = 1.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(112, 117)
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 21.0
 
 [node name="Player" type="Node2D"]
 
@@ -17,20 +22,11 @@ script = ExtResource("1_g2els")
 spin_speed = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+material = SubResource("ShaderMaterial_dqkch")
 texture = ExtResource("2_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_qhqgy")
-one_way_collision_margin = 0.0
+position = Vector2(-7, -7)
+shape = SubResource("CircleShape2D_g2els")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(207, 307)
-mass = 0.1
-gravity_scale = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_dqkch")
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-texture = ExtResource("2_g2els")
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]

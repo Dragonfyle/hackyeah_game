@@ -13,6 +13,7 @@ var _desired_input: Vector2 = Vector2.ZERO
 var _smoothed_input: Vector2 = Vector2.ZERO
 @export var min_step_pixels: float = 3.0 # ensure at least this many pixels movement when starting
 var _was_moving: bool = false
+var _last_collided_bodies: Array[RigidBody2D] = []
 
 func _physics_process(delta: float) -> void:
 	# Read raw input (left/right/up/down). Uses Godot's default ui_* actions.
@@ -69,6 +70,18 @@ func _physics_process(delta: float) -> void:
 	# CharacterBody2D.move_and_slide() uses the built-in `velocity` property internally
 	move_and_slide()
 
+	# Check for collisions with RigidBody2D
+	var current_collided_bodies: Array[RigidBody2D] = []
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		var collider := collision.get_collider()
+		if collider is RigidBody2D:
+			current_collided_bodies.append(collider)
+			# Only print on first contact (not already colliding)
+			if collider not in _last_collided_bodies:
+				print("Player collided with RigidBody2D: ", collider.name, " at position: ", collision.get_position())
+
+	_last_collided_bodies = current_collided_bodies
+
 	# update was_moving flag for next frame
 	_was_moving = is_moving_now
-	
