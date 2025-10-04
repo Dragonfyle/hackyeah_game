@@ -1,19 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://duk6jtds2icjt"]
+[gd_scene load_steps=4 format=3 uid="uid://uuyrgijiy03b"]
 
-[ext_resource type="Script" uid="uid://dpoj2cgnvne12" path="res://scripts/wall_ui.gd" id="1_wykyb"]
-[ext_resource type="Texture2D" uid="uid://crhnrqol7upop" path="res://assets/wall_bg.png" id="2_2ktk7"]
+[ext_resource type="Script" uid="uid://dpoj2cgnvne12" path="res://scripts/wall_ui.gd" id="1_p7dsv"]
+[ext_resource type="Texture2D" uid="uid://crhnrqol7upop" path="res://assets/wall_bg.png" id="2_h4q88"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh6kn"]
-size = Vector2(200, 20)
+size = Vector2(58, 294)
 
 [node name="Wall" type="StaticBody2D" node_paths=PackedStringArray("panel")]
-script = ExtResource("1_wykyb")
+script = ExtResource("1_p7dsv")
 panel = NodePath("NinePatchRect")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(100, 12)
+position = Vector2(30, 149)
 shape = SubResource("RectangleShape2D_oh6kn")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -21,7 +21,7 @@ offset_left = -32.0
 offset_top = -32.0
 offset_right = 33.0
 offset_bottom = 33.0
-texture = ExtResource("2_2ktk7")
+texture = ExtResource("2_h4q88")
 patch_margin_left = 18
 patch_margin_top = 18
 patch_margin_right = 18
