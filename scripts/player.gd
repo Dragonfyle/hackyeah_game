@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var decel: float = 1500.0       # base deceleration when stopping (px/s^2)
 @export var input_response: float = 0.08 # input smoothing time (seconds). Lower = snappier
 @export var brake_distance: float = 120.0 # distance over which to brake to a stop (pixels)
+@export var rotation_speed: float = 2.0 # higher = faster turning (used for smooth rotation)
+@export var spin_in_place: bool = false  # gdy true -> ciągły obrót wokół osi
+@export var spin_speed: float = 3.0      # radiany na sekundę, używane gdy spin_in_place = true
 
 var _desired_input: Vector2 = Vector2.ZERO
 var _smoothed_input: Vector2 = Vector2.ZERO
@@ -53,6 +56,15 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, decel_to_apply * delta)
 		else:
 			velocity = velocity.move_toward(Vector2.ZERO, decel * delta)
+
+	if velocity.length() > 1.0:
+		# rotate to face movement direction (smooth)
+		var target := velocity.angle()           # angle in radians
+		rotation = lerp_angle(rotation, target, clamp(rotation_speed * delta, 0.0, 1.0))
+
+	# If spin mode is enabled, override and spin around own axis
+	if spin_in_place:
+		rotation += spin_speed * delta
 
 	# Move the character using the resolved velocity
 	# CharacterBody2D.move_and_slide() uses the built-in `velocity` property internally

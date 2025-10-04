@@ -17,8 +17,9 @@ radius = 21.0
 [node name="Player" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-motion_mode = 1
+position = Vector2(772, 348)
 script = ExtResource("1_g2els")
+spin_speed = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 material = SubResource("ShaderMaterial_dqkch")
