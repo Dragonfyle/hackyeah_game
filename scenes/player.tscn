@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bci3mp0k07a8n" path="res://icon.svg" id="2_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
-size = Vector2(123, 120)
+size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(112, 117)
@@ -12,19 +12,20 @@ size = Vector2(112, 117)
 [node name="Player" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-motion_mode = 1
+position = Vector2(772, 348)
 script = ExtResource("1_g2els")
+spin_speed = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(469, 322)
 texture = ExtResource("2_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(469, 322)
 shape = SubResource("RectangleShape2D_qhqgy")
+one_way_collision_margin = 0.0
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(207, 307)
+mass = 0.1
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
