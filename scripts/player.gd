@@ -77,9 +77,6 @@ func _physics_process(delta: float) -> void:
 		var collider := collision.get_collider()
 		if collider is RigidBody2D:
 			current_collided_bodies.append(collider)
-			# Only print on first contact (not already colliding)
-			if collider not in _last_collided_bodies:
-				print("Player collided with RigidBody2D: ", collider.name, " at position: ", collision.get_position())
 
 	_last_collided_bodies = current_collided_bodies
 
