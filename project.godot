@@ -22,6 +22,7 @@ MovableManager="*res://scripts/movable_manager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+display_server/driver.linuxbsd="wayland"
 
 [dotnet]
 
