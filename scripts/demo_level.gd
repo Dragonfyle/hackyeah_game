@@ -12,6 +12,9 @@ func _ready() -> void:
 		player.movement_stopped.connect(_on_player_stopped)
 		player.movement_started.connect(_on_player_started)
 
+	# Start with movables paused since player starts stopped
+	MovableManager.pause_all()
+
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/projectile.png"),

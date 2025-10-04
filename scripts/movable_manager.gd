@@ -40,8 +40,8 @@ func get_active_count() -> int:
 
 func pause_all() -> void:
 	for movable in active_movables:
-		movable.set_process(false)
+		movable.pause()
 
 func resume_all() -> void:
 	for movable in active_movables:
-		movable.set_process(true)
+		movable.resume()
