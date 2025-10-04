@@ -4,7 +4,10 @@ var active_movables: Array[Movable] = []
 
 func spawn(movable: Movable, spawn_position: Vector2, lifetime_sec: int = -1) -> Movable:
 	movable.position = spawn_position
-	get_tree().current_scene.add_child(movable)
+	
+	# Use call_deferred to avoid physics callback issues
+	get_tree().current_scene.call_deferred("add_child", movable)
+	
 	active_movables.append(movable)
 
 	# automatic despawn
@@ -23,7 +26,8 @@ func despawn(movable: Movable) -> void:
 		active_movables.erase(movable)
 
 	if is_instance_valid(movable) and movable.get_parent():
-		movable.get_parent().remove_child(movable)
+		# Use call_deferred to avoid physics callback issues
+		movable.get_parent().call_deferred("remove_child", movable)
 		movable.queue_free()
 
 func despawn_all() -> void:
