@@ -8,6 +8,7 @@ var projectile_speed: float
 var projectile_velocity: Vector2
 var scale_factor: float = 1.0  # Skala pocisku (zmniejsza się przy podziale)
 var min_scale: float = 0.25  # Minimalna skala przed usunięciem
+var _stored_velocity: Vector2 = Vector2.ZERO  # For pause/resume
 
 func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2, initial_scale: float = 1.0) -> void:
 	self.scale_factor = initial_scale
@@ -68,3 +69,11 @@ func split_projectile() -> void:
 
 func _deferred_despawn() -> void:
 	MovableManager.despawn(self)
+
+func pause() -> void:
+	_stored_velocity = linear_velocity
+	freeze = true
+
+func resume() -> void:
+	freeze = false
+	linear_velocity = _stored_velocity

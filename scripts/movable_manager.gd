@@ -37,3 +37,11 @@ func despawn_all() -> void:
 
 func get_active_count() -> int:
 	return active_movables.size()
+
+func pause_all() -> void:
+	for movable in active_movables:
+		movable.pause()
+
+func resume_all() -> void:
+	for movable in active_movables:
+		movable.resume()

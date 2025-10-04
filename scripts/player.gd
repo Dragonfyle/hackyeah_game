@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal movement_started
+signal movement_stopped
+
 @export var speed: float = 400.0
 @export var accel: float = 1200.0        # how quickly we reach target speed (px/s^2)
 @export var decel: float = 1500.0       # base deceleration when stopping (px/s^2)
@@ -79,6 +82,12 @@ func _physics_process(delta: float) -> void:
 			current_collided_bodies.append(collider)
 
 	_last_collided_bodies = current_collided_bodies
+
+	# Detect movement state transitions and emit signals
+	if is_moving_now and not _was_moving:
+		movement_started.emit()
+	elif not is_moving_now and _was_moving:
+		movement_stopped.emit()
 
 	# update was_moving flag for next frame
 	_was_moving = is_moving_now

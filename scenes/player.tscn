@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dgb5b72kdw4l6"]
 
 [ext_resource type="Script" uid="uid://dsxe37ha70b37" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://cwg2hagak71dc" path="res://assets/leaf.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://bmke7aj3u0noj" path="res://assets/leaf.png" id="2_g2els"]
 [ext_resource type="Shader" uid="uid://chbk04qsd68hk" path="res://scenes/player.gdshader" id="2_qhqgy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dqkch"]
@@ -14,19 +14,17 @@ shader_parameter/fade_start = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
 radius = 21.0
 
-[node name="Player" type="Node2D"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(772, 348)
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_g2els")
 spin_speed = 2.0
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_dqkch")
 texture = ExtResource("2_g2els")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-7, -7)
 shape = SubResource("CircleShape2D_g2els")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+[node name="Camera2D" type="Camera2D" parent="."]
