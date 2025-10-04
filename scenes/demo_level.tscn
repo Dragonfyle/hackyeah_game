@@ -1,16 +1,15 @@
-[gd_scene load_steps=15 format=4 uid="uid://d0mco1flblvnt"]
+[gd_scene load_steps=17 format=4 uid="uid://ds0b1i8v4nitv"]
 
 [ext_resource type="Script" uid="uid://harwdb0ja3jh" path="res://scripts/demo_level.gd" id="1_etyyu"]
-[ext_resource type="Shader" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
-[ext_resource type="Texture2D" uid="uid://owtvcn0gse5b" path="res://assets/tileset.png" id="2_fxo6y"]
-[ext_resource type="PackedScene" uid="uid://m5o6yydcbodd" path="res://bg_music.tscn" id="3_freo2"]
-[ext_resource type="Texture2D" uid="uid://kpje5q6k2s6l" path="res://assets/bg.png" id="3_fxo6y"]
-[ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
+[ext_resource type="Shader" uid="uid://cxlutvjtdmdk8" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
+[ext_resource type="Texture2D" uid="uid://bg3m1qabldb1u" path="res://assets/tileset.png" id="2_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://cm2sljueru1j4" path="res://assets/bg.png" id="3_fxo6y"]
+[ext_resource type="PackedScene" uid="uid://b4rnmujv2driw" path="res://scenes/player.tscn" id="5_0bg5e"]
 [ext_resource type="Script" uid="uid://c04vnimchvbmu" path="res://scripts/waypoint.gd" id="6_i46ye"]
-[ext_resource type="Texture2D" uid="uid://orwg3kghkhtm" path="res://assets/brain.png" id="7_freo2"]
+[ext_resource type="Texture2D" uid="uid://dyurld65afs0k" path="res://assets/brain.png" id="7_freo2"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
 [ext_resource type="PackedScene" uid="uid://c7bds2o1i4ho4" path="res://scenes/wall2.tscn" id="9_6wx8f"]
-[ext_resource type="PackedScene" uid="uid://duk6jtds2icjt" path="res://scenes/wall.tscn" id="10_r34ug"]
+[ext_resource type="PackedScene" uid="uid://b6ryfi4hhc6n2" path="res://scenes/wall.tscn" id="10_r34ug"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vmhc"]
 shader = ExtResource("2_2vmhc")
@@ -545,9 +544,19 @@ material = SubResource("ShaderMaterial_2vmhc")
 position = Vector2(1248, 1290)
 script = ExtResource("1_etyyu")
 
-[node name="bg_music" parent="." instance=ExtResource("3_freo2")]
+[node name="bg_music" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 position = Vector2(574, -1074)
 scale = Vector2(0.416, 0.416)
+script = null
 
 [node name="Node" type="Node" parent="."]
 
