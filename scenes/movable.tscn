@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://nif0pjsjjpw3"]
 
 [ext_resource type="Script" uid="uid://beecvnyi2x66u" path="res://scripts/movable.gd" id="1_m2iqe"]
-[ext_resource type="Texture2D" uid="uid://dkiobdap7wxhn" path="res://assets/projectile.png" id="2_fs5cj"]
+[ext_resource type="Texture2D" uid="uid://cife2wtyysovb" path="res://assets/sperm_cell.png" id="2_fs5cj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fq6o"]
-radius = 8.139411
+radius = 2.2360678
 
 [node name="Movable" type="RigidBody2D"]
 collision_layer = 2
@@ -13,10 +13,12 @@ max_contacts_reported = 4
 script = ExtResource("1_m2iqe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.4999998, -2.9802322e-07)
-rotation = 0.7853982
+position = Vector2(-5.000001, 0)
+rotation = 9.988645
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("CircleShape2D_8fq6o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.000001, -4.7683716e-07)
+scale = Vector2(0.16216217, 0.17391302)
 texture = ExtResource("2_fs5cj")
