@@ -16,13 +16,13 @@ const WALL_MARGIN = 100
 
 @export_group("Timing")
 ## The initial spawn interval (e.g., between 3 and 4 seconds).
-@export var initial_interval: Vector2 = Vector2(3.0, 4.0)
+@export var initial_interval: Vector2 = Vector2(2.5, 3.0)
 ## The fastest the spawn interval will become.
 @export var final_interval: float = 1.0
 ## How many seconds until the spawning starts to speed up.
-@export var time_to_start_speedup: float = 60.0
+@export var time_to_start_speedup: float = 30.0
 ## How many seconds until the spawning reaches its maximum speed.
-@export var time_to_reach_max_speed: float = 180.0
+@export var time_to_reach_max_speed: float = 90.
 
 @export_group("Projectile Properties")
 #var player = get_node("Player")
@@ -41,7 +41,7 @@ var types_of_projectiles: Array[Dictionary] = [
 
 ## --- Node References ---
 @onready var spawn_timer: Timer = $SpawnTimer
-@onready var player = $Player # Assumes "Player" is a direct child
+@onready var player = $Player # Assumes "Player" is a direct childsi
 
 ## --- Private Variables ---
 var elapsed_time: float = 0.0
