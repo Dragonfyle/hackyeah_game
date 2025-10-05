@@ -31,11 +31,13 @@ const WALL_MARGIN = 100
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 700.0,
+		"speed": 1000.0,
+		"scene": preload("res://scenes/movable.tscn"),
 	},
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 1000.0,
+		"speed": 700.0,
+		"scene": preload("res://scenes/explosive_movable.tscn"),
 	},
 ]
 
@@ -112,8 +114,11 @@ func spawn_projectile(spawn_pos: Vector2, direction: Vector2, show_marker: bool 
 	var speed: float = projectile_type["speed"]
 	var velocity: Vector2 = direction * speed
 
-	# Instantiate the scene you assigned in the Inspector.
-	var pocisk = movable_scene.instantiate() as Movable
+	# Use the scene from the projectile type, or fall back to movable_scene
+	var scene_to_use = projectile_type.get("scene", movable_scene)
+
+	# Instantiate the appropriate scene.
+	var pocisk = scene_to_use.instantiate() as Movable
 
 	# Use your MovableManager to handle the spawn.
 	await MovableManager.spawn(pocisk, spawn_pos, -1, show_marker)
