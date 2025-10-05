@@ -25,6 +25,18 @@ const WALL_MARGIN = 100
 @export var time_to_reach_max_speed: float = 180.0
 
 @export_group("Projectile Properties")
+	var player = get_node("Player")
+	if player:
+		player.movement_stopped.connect(_on_player_stopped)
+		player.movement_started.connect(_on_player_started)
+		player.health_depleted.connect(_on_player_death)
+
+	# Start with movables slowed down since player starts stopped
+	MovableManager.apply_slowdown_all()
+
+	# Initialize score system - player starts idle
+	ScoreManager.set_moving(false)
+
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
@@ -51,17 +63,17 @@ func _ready() -> void:
 		print("Movable scene is not set! Disabling spawner.")
 		set_process(false)
 		return
-		
+
 	# Connect signals from the player and timer.
 	if player:
 		player.movement_stopped.connect(_on_player_stopped)
 		player.movement_started.connect(_on_player_started)
-	
+
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	
+
 	# Start with movables slowed down since player starts stopped.
 	MovableManager.apply_slowdown_all()
-	
+
 	# Start the first spawn cycle immediately.
 	_on_spawn_timer_timeout()
 
@@ -73,18 +85,18 @@ func _process(delta: float) -> void:
 func _on_spawn_timer_timeout() -> void:
 	# 1. Find a valid position to spawn the object.
 	var spawn_pos = find_valid_spawn_position()
-	
+
 	if spawn_pos != Vector2.INF:
 		# 2. Determine the direction (e.g., towards the player).
 		var direction = Vector2.RIGHT # Default direction in case player is missing
 		if player:
 			direction = (player.global_position - spawn_pos).normalized()
-		
+
 		# 3. Call your custom spawn function with the position and direction.
 		spawn_projectile(spawn_pos, direction)
 	else:
 		print("Could not find a valid spawn position after %d attempts." % MAX_ATTEMPTS)
-		
+
 	# 4. Calculate the wait time for the *next* spawn and start the timer.
 	var wait_time = _calculate_current_spawn_time()
 	spawn_timer.wait_time = wait_time
@@ -92,6 +104,7 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_player_stopped() -> void:
 	MovableManager.apply_slowdown_all()
+	ScoreManager.set_moving(false)
 
 func _on_player_started() -> void:
 	MovableManager.remove_slowdown_all()
@@ -144,3 +157,9 @@ func find_valid_spawn_position() -> Vector2:
 		if result.is_empty():
 			return random_pos
 	return Vector2.INF
+	ScoreManager.set_moving(true)
+
+func _on_player_death() -> void:
+	var game_over = get_node("GameOver")
+	if game_over:
+		game_over.show_game_over(ScoreManager.get_score())

@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="hackyeah_game"
-run/main_scene="uid://ds0b1i8v4nitv"
+run/main_scene="uid://d0mco1flblvnt"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 MovableManager="*res://scripts/movable_manager.gd"
+ScoreManager="*res://scripts/score_manager.gd"
 
 [display]
 

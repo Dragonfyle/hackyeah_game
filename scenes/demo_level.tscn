@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://eb1aj81tpr4j" path="res://assets/brain.png" id="7_freo2"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
 [ext_resource type="PackedScene" uid="uid://c7bds2o1i4ho4" path="res://scenes/wall2.tscn" id="9_6wx8f"]
-[ext_resource type="PackedScene" uid="uid://b6ryfi4hhc6n2" path="res://scenes/wall.tscn" id="10_r34ug"]
+[ext_resource type="PackedScene" uid="uid://duk6jtds2icjt" path="res://scenes/wall.tscn" id="10_r34ug"]
+[ext_resource type="PackedScene" uid="uid://cd8v6h3ymxk3u" path="res://scenes/game_over.tscn" id="11_game_over"]
+[ext_resource type="PackedScene" uid="uid://c8h5k3ymxk4v" path="res://scenes/game_ui.tscn" id="12_game_ui"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vmhc"]
 shader = ExtResource("2_2vmhc")
@@ -625,3 +627,8 @@ collision_layer = 3
 [node name="bg_music" parent="." instance=ExtResource("3_freo2")]
 
 [node name="SpawnTimer" type="Timer" parent="."]
+[node name="GameOver" parent="." instance=ExtResource("11_game_over")]
+
+[node name="GameUI" parent="." instance=ExtResource("12_game_ui")]
+
+[editable path="Wall"]
