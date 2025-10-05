@@ -17,6 +17,7 @@ shader_parameter/sprite_rotation = 0.0
 collision_layer = 2
 contact_monitor = true
 max_contacts_reported = 4
+linear_damp_mode = 1
 script = ExtResource("1_m2iqe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
