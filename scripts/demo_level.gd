@@ -1,20 +1,30 @@
 extends Node2D
 
+## --- Constants ---
 const PLAYABLE_WIDTH = 1936
 const PLAYABLE_HEIGHT = 1024
-const WALL_MARGIN = 100  # Odległość od krawędzi gdzie spawnują się pociski
+const WALL_MARGIN = 100
 
-func _ready() -> void:
-	spawn_projectile_from_edge()
+## --- Exported Variables ---
+@export_group("Spawning")
+## The scene of the Movable object you want to spawn.
+@export var movable_scene: PackedScene
+## The rectangular area where objects can be spawned.
+@export var spawn_area: Rect2 = Rect2(0, 0, 1920, 1080)
+## The physics layer number for your walls.
+@export_flags_2d_physics var wall_layer_mask
 
-	var player = get_node("Player")
-	if player:
-		player.movement_stopped.connect(_on_player_stopped)
-		player.movement_started.connect(_on_player_started)
+@export_group("Timing")
+## The initial spawn interval (e.g., between 3 and 4 seconds).
+@export var initial_interval: Vector2 = Vector2(3.0, 4.0)
+## The fastest the spawn interval will become.
+@export var final_interval: float = 1.0
+## How many seconds until the spawning starts to speed up.
+@export var time_to_start_speedup: float = 60.0
+## How many seconds until the spawning reaches its maximum speed.
+@export var time_to_reach_max_speed: float = 180.0
 
-	# Start with movables slowed down since player starts stopped
-	MovableManager.apply_slowdown_all()
-
+@export_group("Projectile Properties")
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
@@ -26,62 +36,111 @@ var types_of_projectiles: Array[Dictionary] = [
 	},
 ]
 
-func spawn_projectile(spawn_pos: Vector2, direction: Vector2, show_marker: bool = true) -> Movable:
-	# Tworzenie nowego pocisku z parametrami konstruktora
-	var texture_resource = types_of_projectiles[randi() % types_of_projectiles.size()]["texture"]
-	var speed: float = types_of_projectiles[randi() % types_of_projectiles.size()]["speed"]
-	var velocity: Vector2 = direction.normalized() * speed
+## --- Node References ---
+@onready var spawn_timer: Timer = $SpawnTimer
+@onready var player = $Player # Assumes "Player" is a direct child
 
-	# Load and instantiate the flyable scene
-	var flyable_scene = preload("res://scenes/movable.tscn")
-	var pocisk = flyable_scene.instantiate() as Movable
+## --- Private Variables ---
+var elapsed_time: float = 0.0
+const MAX_ATTEMPTS = 100
 
-	# Spawn pocisku przez FlyableManager (musi być przed setup)
-	await MovableManager.spawn(pocisk, spawn_pos, -1, show_marker)
+## --- Godot Functions ---
+func _ready() -> void:
+	# Ensure the scene to spawn has been assigned in the Inspector.
+	if not movable_scene:
+		print("Movable scene is not set! Disabling spawner.")
+		set_process(false)
+		return
+		
+	# Connect signals from the player and timer.
+	if player:
+		player.movement_stopped.connect(_on_player_stopped)
+		player.movement_started.connect(_on_player_started)
+	
+	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+	
+	# Start with movables slowed down since player starts stopped.
+	MovableManager.apply_slowdown_all()
+	
+	# Start the first spawn cycle immediately.
+	_on_spawn_timer_timeout()
 
-	# Setup the projectile with parameters (po dodaniu do drzewa)
-	pocisk.setup(texture_resource, speed, velocity)
+func _process(delta: float) -> void:
+	# Keep track of the total elapsed time to control spawn speed.
+	elapsed_time += delta
 
-	# Ustawienie kierunku (może być potrzebne do aktualizacji rotacji)
-	pocisk.set_direction(direction)
-
-	return pocisk
-
-# Spawn pocisku z losowej krawędzi ekranu, skierowanego do środka
-func spawn_projectile_from_edge() -> Movable:
-	var edge = randi() % 4  # 0=lewo, 1=prawo, 2=góra, 3=dół
-	var spawn_pos: Vector2
-	var direction: Vector2
-
-	# Use camera viewport for spawning at visible edges
-	var camera = $Camera2D
-	var viewport_size = get_viewport_rect().size / camera.zoom
-	var playable_center = Vector2(camera.position.x, camera.position.y)
-
-
-	match edge:
-		0:  # Lewa krawędź
-			spawn_pos = Vector2(playable_center.x - viewport_size.x/2.0 + WALL_MARGIN, playable_center.y + randf_range(-viewport_size.y/2.0, viewport_size.y/2.0) + WALL_MARGIN)
-			direction = (playable_center - spawn_pos).normalized()
-		1:  # Prawa krawędź
-			spawn_pos = Vector2(playable_center.x + viewport_size.x/2.0 - WALL_MARGIN, playable_center.y + randf_range(-viewport_size.y/2.0, viewport_size.y/2.0) + WALL_MARGIN)
-			direction = (playable_center - spawn_pos).normalized()
-		2:  # Górna krawędź
-			spawn_pos = Vector2(playable_center.x + randf_range(-viewport_size.x/2.0, viewport_size.x/2.0) + WALL_MARGIN, playable_center.y + viewport_size.y/2.0 - WALL_MARGIN)
-			direction = (playable_center - spawn_pos).normalized()
-		3:  # Dolna krawędź
-			spawn_pos = Vector2(playable_center.x + randf_range(-viewport_size.x/2.0, viewport_size.x/2.0) + WALL_MARGIN, playable_center.y - viewport_size.y/2.0 + WALL_MARGIN)
-			direction = (playable_center - spawn_pos).normalized()
-
-	return await spawn_projectile(spawn_pos, direction)
-
-# Przykład: spawn pocisku na kliknięcie
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		spawn_projectile_from_edge()
+## --- Signal Handlers ---
+func _on_spawn_timer_timeout() -> void:
+	# 1. Find a valid position to spawn the object.
+	var spawn_pos = find_valid_spawn_position()
+	
+	if spawn_pos != Vector2.INF:
+		# 2. Determine the direction (e.g., towards the player).
+		var direction = Vector2.RIGHT # Default direction in case player is missing
+		if player:
+			direction = (player.global_position - spawn_pos).normalized()
+		
+		# 3. Call your custom spawn function with the position and direction.
+		spawn_projectile(spawn_pos, direction)
+	else:
+		print("Could not find a valid spawn position after %d attempts." % MAX_ATTEMPTS)
+		
+	# 4. Calculate the wait time for the *next* spawn and start the timer.
+	var wait_time = _calculate_current_spawn_time()
+	spawn_timer.wait_time = wait_time
+	spawn_timer.start()
 
 func _on_player_stopped() -> void:
 	MovableManager.apply_slowdown_all()
 
 func _on_player_started() -> void:
 	MovableManager.remove_slowdown_all()
+
+## --- Custom Functions ---
+func spawn_projectile(spawn_pos: Vector2, direction: Vector2, show_marker: bool = true) -> void:
+	# Pick random properties for the new projectile.
+	var projectile_type = types_of_projectiles.pick_random()
+	var texture_resource = projectile_type["texture"]
+	var speed: float = projectile_type["speed"]
+	var velocity: Vector2 = direction * speed
+
+	# Instantiate the scene you assigned in the Inspector.
+	var pocisk = movable_scene.instantiate() as Movable
+
+	# Use your MovableManager to handle the spawn.
+	await MovableManager.spawn(pocisk, spawn_pos, -1, show_marker)
+
+	# Setup the projectile with its unique parameters.
+	pocisk.setup(texture_resource, speed, velocity)
+	pocisk.set_direction(direction)
+
+## --- Helper Functions ---
+func _calculate_current_spawn_time() -> float:
+	if elapsed_time < time_to_start_speedup:
+		return randf_range(initial_interval.x, initial_interval.y)
+	else:
+		var current_interval = remap(
+			elapsed_time,
+			time_to_start_speedup,
+			time_to_reach_max_speed,
+			initial_interval.y,
+			final_interval
+		)
+		return max(current_interval, final_interval)
+
+func find_valid_spawn_position() -> Vector2:
+	var space_state = get_world_2d().direct_space_state
+	var attempts = 0
+	while attempts < MAX_ATTEMPTS:
+		attempts += 1
+		var random_pos = Vector2(
+			randf_range(spawn_area.position.x, spawn_area.end.x),
+			randf_range(spawn_area.position.y, spawn_area.end.y)
+		)
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = random_pos
+		query.collision_mask = wall_layer_mask
+		var result = space_state.intersect_point(query)
+		if result.is_empty():
+			return random_pos
+	return Vector2.INF

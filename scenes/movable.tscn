@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://nif0pjsjjpw3"]
+[gd_scene load_steps=7 format=3 uid="uid://13mlclpuwn5j"]
 
 [ext_resource type="Script" uid="uid://beecvnyi2x66u" path="res://scripts/movable.gd" id="1_m2iqe"]
 [ext_resource type="Shader" path="res://scenes/movable.gdshader" id="2_4mg2c"]
-[ext_resource type="Texture2D" uid="uid://cife2wtyysovb" path="res://assets/sperm_cell.png" id="2_fs5cj"]
-[ext_resource type="AudioStream" uid="uid://tnleii2a6iei" path="res://assets/splash_sound.mp3" id="3_8fq6o"]
+[ext_resource type="Texture2D" uid="uid://bimsbb18bgf1a" path="res://assets/sperm_cell.png" id="2_fs5cj"]
+[ext_resource type="AudioStream" uid="uid://c40q0hjxue13b" path="res://assets/splash_sound.mp3" id="3_8fq6o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fq6o"]
 radius = 2.2360678
