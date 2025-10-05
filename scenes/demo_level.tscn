@@ -629,4 +629,16 @@ rotation = 1.0471976
 position = Vector2(-136, -826)
 rotation = -2.1554816
 
+[node name="Wall7" parent="." instance=ExtResource("9_6wx8f")]
+position = Vector2(-104, -338)
+rotation = 2.0943952
+
+[node name="Wall8" parent="." instance=ExtResource("9_6wx8f")]
+position = Vector2(384, -474)
+rotation = -0.7853982
+
+[node name="Wall9" parent="." instance=ExtResource("9_6wx8f")]
+position = Vector2(-864, -378)
+rotation = 1.3089969
+
 [editable path="Wall"]
