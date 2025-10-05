@@ -18,6 +18,7 @@ func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2,
 	self.projectile_speed = new_speed
 	self.projectile_velocity = new_velocity
 	self.gravity_scale = 0.0
+	self.linear_damp = 0.0
 
 	# Rotate the sprite to match the velocity direction
 	if new_velocity.length() > 0.0:
