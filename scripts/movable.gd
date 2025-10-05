@@ -79,10 +79,9 @@ func split_projectile() -> void:
 func _deferred_despawn() -> void:
 	MovableManager.despawn(self)
 
-func pause() -> void:
+func apply_slowdown() -> void:
 	_stored_velocity = linear_velocity
-	freeze = true
+	linear_velocity = linear_velocity * 0.02
 
-func resume() -> void:
-	freeze = false
+func remove_slowdown() -> void:
 	linear_velocity = _stored_velocity

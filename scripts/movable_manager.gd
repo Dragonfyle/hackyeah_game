@@ -19,9 +19,9 @@ func spawn(movable: Movable, spawn_position: Vector2, lifetime_sec: int = -1, sh
 
 	active_movables.append(movable)
 
-	# If currently paused, pause the newly spawned movable
+	# If currently slowed, apply slowdown to the newly spawned movable
 	if is_paused:
-		movable.call_deferred("pause")
+		movable.call_deferred("apply_slowdown")
 
 	# automatic despawn
 	if lifetime_sec > 0:
@@ -51,12 +51,12 @@ func despawn_all() -> void:
 func get_active_count() -> int:
 	return active_movables.size()
 
-func pause_all() -> void:
+func apply_slowdown_all() -> void:
 	is_paused = true
 	for movable in active_movables:
-		movable.pause()
+		movable.apply_slowdown()
 
-func resume_all() -> void:
+func remove_slowdown_all() -> void:
 	is_paused = false
 	for movable in active_movables:
-		movable.resume()
+		movable.remove_slowdown()
