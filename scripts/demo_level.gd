@@ -25,17 +25,8 @@ const WALL_MARGIN = 100
 @export var time_to_reach_max_speed: float = 180.0
 
 @export_group("Projectile Properties")
-	var player = get_node("Player")
-	if player:
-		player.movement_stopped.connect(_on_player_stopped)
-		player.movement_started.connect(_on_player_started)
-		player.health_depleted.connect(_on_player_death)
+#var player = get_node("Player")
 
-	# Start with movables slowed down since player starts stopped
-	MovableManager.apply_slowdown_all()
-
-	# Initialize score system - player starts idle
-	ScoreManager.set_moving(false)
 
 var types_of_projectiles: Array[Dictionary] = [
 	{
@@ -68,11 +59,15 @@ func _ready() -> void:
 	if player:
 		player.movement_stopped.connect(_on_player_stopped)
 		player.movement_started.connect(_on_player_started)
+		player.health_depleted.connect(_on_player_death)
+
+	# Start with movables slowed down since player starts stopped
+	MovableManager.apply_slowdown_all()
+
+	# Initialize score system - player starts idle
+	ScoreManager.set_moving(false)
 
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-
-	# Start with movables slowed down since player starts stopped.
-	MovableManager.apply_slowdown_all()
 
 	# Start the first spawn cycle immediately.
 	_on_spawn_timer_timeout()
