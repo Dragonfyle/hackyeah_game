@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://d0mco1flblvnt"]
+[gd_scene load_steps=19 format=4 uid="uid://d0mco1flblvnt"]
 
 [ext_resource type="Script" uid="uid://harwdb0ja3jh" path="res://scripts/demo_level.gd" id="1_etyyu"]
 [ext_resource type="Shader" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
@@ -7,13 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://bvcwfn3by7qkq" path="res://assets/bg.png" id="3_fxo6y"]
 [ext_resource type="PackedScene" uid="uid://13mlclpuwn5j" path="res://scenes/movable.tscn" id="3_grs8q"]
 [ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
-[ext_resource type="Script" uid="uid://c04vnimchvbmu" path="res://scripts/waypoint.gd" id="6_i46ye"]
-[ext_resource type="Texture2D" uid="uid://eb1aj81tpr4j" path="res://assets/brain.png" id="7_freo2"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
 [ext_resource type="PackedScene" uid="uid://c7bds2o1i4ho4" path="res://scenes/wall2.tscn" id="9_6wx8f"]
 [ext_resource type="PackedScene" uid="uid://b6ryfi4hhc6n2" path="res://scenes/wall.tscn" id="10_r34ug"]
 [ext_resource type="PackedScene" path="res://scenes/game_over.tscn" id="11_game_over"]
 [ext_resource type="PackedScene" path="res://scenes/game_ui.tscn" id="12_game_ui"]
+[ext_resource type="PackedScene" uid="uid://ca4d1x3ubewsu" path="res://scenes/wall_triangle.tscn" id="13_8ie3e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vmhc"]
 shader = ExtResource("2_2vmhc")
@@ -540,9 +539,6 @@ shader_parameter/color_separation = 0.3
 shader_parameter/texture_size = Vector2(1024, 768)
 shader_parameter/warm_tint = Color(1, 0.9, 0.7, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_88xa8"]
-radius = 36.124783
-
 [node name="DemoLevel" type="Node2D"]
 material = SubResource("ShaderMaterial_2vmhc")
 position = Vector2(1248, 1290)
@@ -597,17 +593,6 @@ texture = ExtResource("3_fxo6y")
 [node name="Player" parent="." instance=ExtResource("5_0bg5e")]
 position = Vector2(-1014, -299)
 
-[node name="Exit" type="Area2D" parent="."]
-position = Vector2(574, -1074)
-script = ExtResource("6_i46ye")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
-shape = SubResource("CircleShape2D_88xa8")
-
-[node name="Sprite2D" type="Sprite2D" parent="Exit"]
-scale = Vector2(0.416, 0.416)
-texture = ExtResource("7_freo2")
-
 [node name="Wall" parent="." instance=ExtResource("8_freo2")]
 position = Vector2(172, -663)
 collision_layer = 3
@@ -621,7 +606,7 @@ position = Vector2(19, -471)
 collision_layer = 3
 
 [node name="Wall4" parent="." instance=ExtResource("10_r34ug")]
-position = Vector2(-91, -982)
+position = Vector2(384, -850)
 collision_layer = 3
 
 [node name="bg_music" parent="." instance=ExtResource("3_freo2")]
@@ -631,5 +616,15 @@ collision_layer = 3
 [node name="GameOver" parent="." instance=ExtResource("11_game_over")]
 
 [node name="GameUI" parent="." instance=ExtResource("12_game_ui")]
+
+[node name="Wall5" parent="." instance=ExtResource("9_6wx8f")]
+position = Vector2(-976, -674)
+
+[node name="Wall6" parent="." instance=ExtResource("8_freo2")]
+position = Vector2(-658.4487, -973.09973)
+
+[node name="wall_triangle" parent="Wall6" instance=ExtResource("13_8ie3e")]
+position = Vector2(522.4487, 147.09973)
+rotation = -2.1554816
 
 [editable path="Wall"]

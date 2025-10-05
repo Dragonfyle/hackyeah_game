@@ -16,13 +16,13 @@ const WALL_MARGIN = 100
 
 @export_group("Timing")
 ## The initial spawn interval (e.g., between 3 and 4 seconds).
-@export var initial_interval: Vector2 = Vector2(2.5, 3.0)
+@export var initial_interval: Vector2 = Vector2(3, 3.5)
 ## The fastest the spawn interval will become.
 @export var final_interval: float = 1.0
 ## How many seconds until the spawning starts to speed up.
 @export var time_to_start_speedup: float = 30.0
 ## How many seconds until the spawning reaches its maximum speed.
-@export var time_to_reach_max_speed: float = 90.
+@export var time_to_reach_max_speed: float = 90.0
 
 @export_group("Projectile Properties")
 #var player = get_node("Player")
@@ -78,21 +78,28 @@ func _process(delta: float) -> void:
 
 ## --- Signal Handlers ---
 func _on_spawn_timer_timeout() -> void:
-	# 1. Find a valid position to spawn the object.
-	var spawn_pos = find_valid_spawn_position()
-
-	if spawn_pos != Vector2.INF:
-		# 2. Determine the direction (e.g., towards the player).
-		var direction = Vector2.RIGHT # Default direction in case player is missing
-		if player:
-			direction = (player.global_position - spawn_pos).normalized()
-
-		# 3. Call your custom spawn function with the position and direction.
-		spawn_projectile(spawn_pos, direction)
-	else:
-		print("Could not find a valid spawn position after %d attempts." % MAX_ATTEMPTS)
-
-	# 4. Calculate the wait time for the *next* spawn and start the timer.
+	# 1. Decide how many movables to spawn in this wave (from 1 to 4).
+	var spawn_count = randi_range(1, 4)
+	
+	# 2. Loop that many times to spawn each movable.
+	for i in range(spawn_count):
+		# Find a unique valid position for each new object.
+		var spawn_pos = find_valid_spawn_position()
+		
+		if spawn_pos != Vector2.INF:
+			# Determine the direction (e.g., towards the player).
+			var direction = Vector2.RIGHT
+			if player:
+				direction = (player.global_position - spawn_pos).normalized()
+			
+			# Call your custom spawn function with the position and direction.
+			spawn_projectile(spawn_pos, direction)
+		else:
+			print("Could not find a valid spawn position after %d attempts." % MAX_ATTEMPTS)
+			# If one fails, stop this wave to avoid spamming errors if space is tight.
+			break
+			
+	# 3. Calculate the wait time for the *next* wave and start the timer.
 	var wait_time = _calculate_current_spawn_time()
 	spawn_timer.wait_time = wait_time
 	spawn_timer.start()
