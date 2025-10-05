@@ -42,7 +42,6 @@ func _on_body_entered(body: Node) -> void:
 		split_projectile()
 	if body is CharacterBody2D:
 		$AudioStreamPlayer2D.play()
-		call_deferred("_deferred_despawn")
 
 
 func split_projectile() -> void:
@@ -61,16 +60,16 @@ func split_projectile() -> void:
 	var new_pocisk1 = flyable_scene.instantiate() as Movable
 	var direction1 = projectile_velocity.rotated(-self.rotation + randf_range(-PI/4, -PI/8))  # -45° to -22.5°
 	var spawn_position1 = self.position
-	MovableManager.spawn(new_pocisk1, spawn_position1)
+	MovableManager.spawn(new_pocisk1, spawn_position1, -1, false)  # No marker for splits
 	new_pocisk1.setup(texture_resource, projectile_speed, direction1, new_scale)
 	# Set correct rotation for the sprite to match direction
-	
+
 	# Drugi pocisk - lekko w prawo
 	var new_pocisk2 = flyable_scene.instantiate() as Movable
 	var direction2 = projectile_velocity.rotated(-self.rotation + randf_range(-PI/4, -PI/8))  # 22.5° to 45°
 	var spawn_offset = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 	var spawn_position2 = self.position + spawn_offset
-	MovableManager.spawn(new_pocisk2, spawn_position2)
+	MovableManager.spawn(new_pocisk2, spawn_position2, -1, false)  # No marker for splits
 	new_pocisk2.setup(texture_resource, projectile_speed, direction2, new_scale)
 	# Set correct rotation for the sprite to match direction
 

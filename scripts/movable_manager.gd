@@ -3,7 +3,15 @@ extends Node
 var active_movables: Array[Movable] = []
 var is_paused: bool = false
 
-func spawn(movable: Movable, spawn_position: Vector2, lifetime_sec: int = -1) -> Movable:
+func spawn(movable: Movable, spawn_position: Vector2, lifetime_sec: int = -1, show_marker: bool = true) -> Movable:
+	if show_marker:
+		# Show spawn marker and wait for animation
+		var marker_scene = preload("res://scenes/spawn_marker.tscn")
+		var marker = marker_scene.instantiate()
+		marker.position = spawn_position
+		get_tree().current_scene.add_child(marker)
+		await marker.animation_complete
+
 	movable.position = spawn_position
 
 	# Use call_deferred to avoid physics callback issues
