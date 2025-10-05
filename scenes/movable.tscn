@@ -1,12 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://13mlclpuwn5j"]
+[gd_scene load_steps=6 format=3 uid="uid://13mlclpuwn5j"]
 
 [ext_resource type="Script" uid="uid://beecvnyi2x66u" path="res://scripts/movable.gd" id="1_m2iqe"]
-[ext_resource type="Shader" path="res://scenes/movable.gdshader" id="2_4mg2c"]
+[ext_resource type="Shader" uid="uid://bx0vy85w230ea" path="res://scenes/movable.gdshader" id="2_4mg2c"]
 [ext_resource type="Texture2D" uid="uid://bimsbb18bgf1a" path="res://assets/sperm_cell.png" id="2_fs5cj"]
-[ext_resource type="AudioStream" uid="uid://c40q0hjxue13b" path="res://assets/splash_sound.mp3" id="3_8fq6o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fq6o"]
-radius = 2.2360678
+radius = 12.806252
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aiadq"]
 shader = ExtResource("2_4mg2c")
@@ -22,7 +21,7 @@ linear_damp_mode = 1
 script = ExtResource("1_m2iqe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5.000001, 0)
+position = Vector2(-23.999998, -1.0000004)
 rotation = 9.988645
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("CircleShape2D_8fq6o")
@@ -30,5 +29,4 @@ shape = SubResource("CircleShape2D_8fq6o")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_aiadq")
 position = Vector2(-1.000001, -4.7683716e-07)
-scale = Vector2(0.16216217, 0.17391302)
 texture = ExtResource("2_fs5cj")

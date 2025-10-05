@@ -22,7 +22,7 @@ func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2,
 
 	# Rotate the sprite to match the velocity direction
 	if new_velocity.length() > 0.0:
-		$Sprite2D.rotation = new_velocity.angle() + 135
+		rotation = new_velocity.angle() + 135
 	# Debug log
 
 func _ready() -> void:
@@ -35,7 +35,7 @@ func set_direction(direction: Vector2) -> void:
 	self.projectile_velocity = direction.normalized() * self.projectile_speed
 	linear_velocity = self.projectile_velocity
 	self.rotation = direction.angle()
-	$Sprite2D.rotation = direction.angle()
+	rotation = direction.angle()
 
 func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
