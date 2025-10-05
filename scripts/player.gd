@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 signal movement_started
 signal movement_stopped
+signal health_changed(new_health: float)
+signal health_depleted
 
 @export var speed: float = 400.0
 @export var accel: float = 1200.0        # how quickly we reach target speed (px/s^2)
@@ -12,11 +14,27 @@ signal movement_stopped
 @export var spin_in_place: bool = false  # gdy true -> ciągły obrót wokół osi
 @export var spin_speed: float = 3.0      # radiany na sekundę, używane gdy spin_in_place = true
 
+# System życia
+@export var max_health: float = 100.0
+@export var current_health: float = 100.0
+@export var collision_damage: float = 20.0  # obrażenia za kolizję z movable
+@export var health_regen_rate: float = 5.0   # punkty życia odzyskiwane na sekundę gdy stoi
+@export var health_display_speed: float = 2.0  # szybkość animacji wskaźnika życia
+
+var _target_health_display: float = 0.0  # docelowy poziom wskaźnika
+var _current_health_display: float = 0.0  # aktualny poziom wskaźnika
+
 var _desired_input: Vector2 = Vector2.ZERO
 var _smoothed_input: Vector2 = Vector2.ZERO
 @export var min_step_pixels: float = 3.0 # ensure at least this many pixels movement when starting
 var _was_moving: bool = false
 var _last_collided_bodies: Array[RigidBody2D] = []
+
+func _ready() -> void:
+	current_health = max_health
+	_target_health_display = 0.0  # 100% życia = 0.0 wskaźnika
+	_current_health_display = 0.0
+	update_health_display()
 
 func _physics_process(delta: float) -> void:
 	# Read raw input (left/right/up/down). Uses Godot's default ui_* actions.
@@ -80,6 +98,11 @@ func _physics_process(delta: float) -> void:
 		var collider := collision.get_collider()
 		if collider is RigidBody2D:
 			current_collided_bodies.append(collider)
+			# Sprawdź czy to nowa kolizja z movable obiektem
+			if collider is Movable and not _last_collided_bodies.has(collider):
+				# Zadaj obrażenia za kolizję z movable
+				take_damage(collision_damage)
+				print("Kolizja z movable! Obrażenia: ", collision_damage, " Życie: ", current_health)
 
 	_last_collided_bodies = current_collided_bodies
 
@@ -91,3 +114,39 @@ func _physics_process(delta: float) -> void:
 
 	# update was_moving flag for next frame
 	_was_moving = is_moving_now
+
+	# Animate health display
+	animate_health_display(delta)
+
+func change_health(amount: float) -> void:
+	var old_health = current_health
+	current_health = clamp(current_health + amount, 0.0, max_health)
+	
+	if current_health != old_health:
+		# Aktualizuj docelowy poziom wskaźnika
+		var health_percentage = current_health / max_health
+		_target_health_display = 1.0 - health_percentage  # 0% życia = 1.0 wskaźnika
+		
+		health_changed.emit(current_health)
+		
+		if current_health <= 0.0:
+			health_depleted.emit()
+
+func update_health_display() -> void:
+	# Znajdź Sprite2D i jego material
+	var sprite = $Sprite2D
+	if sprite and sprite.material:
+		# Ustaw parametr shadera na aktualny poziom wskaźnika
+		sprite.material.set_shader_parameter("health_fill", _current_health_display)
+
+func animate_health_display(delta: float) -> void:
+	# Płynnie animuj wskaźnik życia do docelowego poziomu
+	if _current_health_display != _target_health_display:
+		_current_health_display = lerp(_current_health_display, _target_health_display, health_display_speed * delta)
+		update_health_display()
+
+func take_damage(amount: float) -> void:
+	change_health(-amount)
+
+func get_health_percentage() -> float:
+	return current_health / max_health

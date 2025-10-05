@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4rnmujv2driw"]
+[gd_scene load_steps=6 format=3 uid="uid://dgb5b72kdw4l6"]
 
 [ext_resource type="Script" uid="uid://dsxe37ha70b37" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Shader" path="res://scenes/player.gdshader" id="2_qhqgy"]
+[ext_resource type="Shader" uid="uid://chbk04qsd68hk" path="res://scenes/player.gdshader" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://dgaacgsatppa3" path="res://assets/egg_cell.png" id="3_qhqgy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dqkch"]
@@ -10,6 +10,7 @@ shader_parameter/burst_progress = 0.082000003895
 shader_parameter/spread_strength = 0.0
 shader_parameter/distortion_strength = 0.1970000093575
 shader_parameter/fade_start = 1.0
+shader_parameter/health_fill = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
 radius = 21.0
