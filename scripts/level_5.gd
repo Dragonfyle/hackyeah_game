@@ -31,17 +31,17 @@ const WALL_MARGIN = 100
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 700.0,
+		"speed": 1000.0,
 		"scene": preload("res://scenes/movable.tscn"),
 	},
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 500.0,
+		"speed": 700.0,
 		"scene": preload("res://scenes/explosive_movable.tscn"),
 	},
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 400.0,
+		"speed": 600.0,
 		"scene": preload("res://scenes/spawning_movable.tscn"),
 	},
 	{
@@ -58,7 +58,7 @@ var types_of_projectiles: Array[Dictionary] = [
 ## --- Private Variables ---
 var elapsed_time: float = 0.0
 const MAX_ATTEMPTS = 100
-var current_level: int = 1
+var current_level: int = 5
 const SCORE_PER_LEVEL: int = 1000
 const MAX_LEVEL: int = 6
 
