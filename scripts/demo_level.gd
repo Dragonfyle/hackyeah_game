@@ -12,8 +12,8 @@ func _ready() -> void:
 		player.movement_stopped.connect(_on_player_stopped)
 		player.movement_started.connect(_on_player_started)
 
-	# Start with movables paused since player starts stopped
-	MovableManager.pause_all()
+	# Start with movables slowed down since player starts stopped
+	MovableManager.apply_slowdown_all()
 
 var types_of_projectiles: Array[Dictionary] = [
 	{
@@ -81,7 +81,7 @@ func _input(event: InputEvent) -> void:
 		spawn_projectile_from_edge()
 
 func _on_player_stopped() -> void:
-	MovableManager.pause_all()
+	MovableManager.apply_slowdown_all()
 
 func _on_player_started() -> void:
-	MovableManager.resume_all()
+	MovableManager.remove_slowdown_all()
