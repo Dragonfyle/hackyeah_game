@@ -1,10 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca4d1x3ubewsu"]
+[gd_scene load_steps=4 format=3 uid="uid://dylcmpsu0jcis"]
 
-[ext_resource type="Texture2D" uid="uid://c7dnlgwtaw473" path="res://assets/wall_triangle.png" id="1_xnhm5"]
+[ext_resource type="Shader" uid="uid://cxlutvjtdmdk8" path="res://scenes/demo_level.gdshader" id="1_6f4jo"]
+[ext_resource type="Texture2D" uid="uid://cwvliirk7l8go" path="res://assets/wall_triangle.png" id="1_xnhm5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vt2yt"]
+shader = ExtResource("1_6f4jo")
+shader_parameter/enabled = true
+shader_parameter/dot_scale = 0.5
+shader_parameter/contrast = 1.5
+shader_parameter/brightness = 0.0
+shader_parameter/threshold = 0.5
+shader_parameter/smoothness = 0.1
+shader_parameter/color_separation = 0.3
+shader_parameter/texture_size = Vector2(1024, 768)
+shader_parameter/warm_tint = Color(1, 0.9, 0.7, 1)
 
 [node name="wall_triangle" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_vt2yt")
 position = Vector2(4, -6)
 texture = ExtResource("1_xnhm5")
 
