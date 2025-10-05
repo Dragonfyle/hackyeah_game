@@ -30,6 +30,8 @@ var _smoothed_input: Vector2 = Vector2.ZERO
 var _was_moving: bool = false
 var _last_collided_bodies: Array[RigidBody2D] = []
 
+@onready var splash_sound: AudioStreamPlayer2D = $SplashSound
+
 func _ready() -> void:
 	current_health = max_health
 	_target_health_display = 0.0  # 100% życia = 0.0 wskaźnika
@@ -102,7 +104,6 @@ func _physics_process(delta: float) -> void:
 			if collider is Movable and not _last_collided_bodies.has(collider):
 				# Zadaj obrażenia za kolizję z movable
 				take_damage(collision_damage)
-				print("Kolizja z movable! Obrażenia: ", collision_damage, " Życie: ", current_health)
 
 	_last_collided_bodies = current_collided_bodies
 
@@ -147,6 +148,8 @@ func animate_health_display(delta: float) -> void:
 
 func take_damage(amount: float) -> void:
 	change_health(-amount)
+	splash_sound.play()
+
 
 func get_health_percentage() -> float:
 	return current_health / max_health
