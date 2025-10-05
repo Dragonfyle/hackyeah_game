@@ -2,3 +2,4 @@
 .vscode/
 .DS_Store
 assets/*.mp3
+*.import

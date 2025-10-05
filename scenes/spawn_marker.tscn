@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cmv3hl7qx6c8y"]
 
 [ext_resource type="Script" uid="uid://duhes1ytbc4xp" path="res://scripts/spawn_marker.gd" id="1_marker"]
-[ext_resource type="Texture2D" uid="uid://bk0tklra6arvk" path="res://assets/enemy_indicator.png" id="2_rtc4f"]
+[ext_resource type="Texture2D" uid="uid://wui21shel2qw" path="res://assets/enemy_indicator.png" id="2_rtc4f"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rtc4f"]
 
