@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://ctnnl64k22c75"]
+[gd_scene load_steps=19 format=4 uid="uid://1tg218kmonb6"]
 
 [ext_resource type="Script" path="res://scripts/level_4.gd" id="1_etyyu"]
 [ext_resource type="Shader" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
-[ext_resource type="Texture2D" uid="uid://dn6u7q31pbajq" path="res://assets/tileset.png" id="2_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://bwks8eirfw7qs" path="res://assets/tileset.png" id="2_fxo6y"]
 [ext_resource type="PackedScene" path="res://scenes/bg_music.tscn" id="3_freo2"]
-[ext_resource type="Texture2D" uid="uid://bvcwfn3by7qkq" path="res://assets/bg.png" id="3_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://btea0t3xdcjiy" path="res://assets/bg.png" id="3_fxo6y"]
 [ext_resource type="PackedScene" uid="uid://13mlclpuwn5j" path="res://scenes/movable.tscn" id="3_grs8q"]
 [ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
@@ -609,7 +609,7 @@ rotation = 1.5708
 collision_layer = 3
 
 [node name="Wall4" parent="." instance=ExtResource("10_r34ug")]
-position = Vector2(250, -350)
+position = Vector2(-632, -978)
 rotation = 2.3562
 collision_layer = 3
 
@@ -622,15 +622,15 @@ collision_layer = 3
 [node name="GameUI" parent="." instance=ExtResource("12_game_ui")]
 
 [node name="Wall5" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(-950, -800)
+position = Vector2(-1000, -922)
 rotation = 0.5236
 
 [node name="Wall6" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(450, -700)
+position = Vector2(256, -634)
 rotation = -1.0472
 
 [node name="wall_triangle" parent="." instance=ExtResource("13_8ie3e")]
-position = Vector2(-150, -500)
+position = Vector2(-128, -674)
 rotation = 1.0472
 
 [node name="Wall7" parent="." instance=ExtResource("9_6wx8f")]
@@ -638,11 +638,10 @@ position = Vector2(150, -1100)
 rotation = 1.5708
 
 [node name="Wall8" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(-550, -350)
-rotation = 0.0
+position = Vector2(-600, -394)
 
 [node name="Wall9" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(800, -550)
+position = Vector2(80, -402)
 rotation = -1.5708
 
 [editable path="Wall"]

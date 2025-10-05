@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://dfou6c5p6j4ni"]
+[gd_scene load_steps=19 format=4 uid="uid://dje83yjxcjxd"]
 
 [ext_resource type="Script" path="res://scripts/level_3.gd" id="1_etyyu"]
 [ext_resource type="Shader" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
-[ext_resource type="Texture2D" uid="uid://dn6u7q31pbajq" path="res://assets/tileset.png" id="2_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://bwks8eirfw7qs" path="res://assets/tileset.png" id="2_fxo6y"]
 [ext_resource type="PackedScene" path="res://scenes/bg_music.tscn" id="3_freo2"]
-[ext_resource type="Texture2D" uid="uid://bvcwfn3by7qkq" path="res://assets/bg.png" id="3_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://btea0t3xdcjiy" path="res://assets/bg.png" id="3_fxo6y"]
 [ext_resource type="PackedScene" uid="uid://13mlclpuwn5j" path="res://scenes/movable.tscn" id="3_grs8q"]
 [ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
@@ -595,7 +595,6 @@ position = Vector2(-1014, -299)
 
 [node name="Wall" parent="." instance=ExtResource("8_freo2")]
 position = Vector2(-100, -950)
-rotation = 0.0
 collision_layer = 3
 
 [node name="Wall2" parent="." instance=ExtResource("9_6wx8f")]
@@ -604,7 +603,7 @@ rotation = 1.0472
 collision_layer = 3
 
 [node name="Wall3" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(-700, -800)
+position = Vector2(-576, -1018)
 rotation = -0.5236
 collision_layer = 3
 
@@ -626,19 +625,19 @@ position = Vector2(-400, -400)
 rotation = 0.7854
 
 [node name="Wall6" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(100, -1050)
+position = Vector2(-824, -1010)
 rotation = 1.0472
 
 [node name="wall_triangle" parent="." instance=ExtResource("13_8ie3e")]
-position = Vector2(-900, -600)
+position = Vector2(-752, -602)
 rotation = 0.5236
 
 [node name="Wall7" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(700, -850)
+position = Vector2(360, -882)
 rotation = -0.7854
 
 [node name="Wall8" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(-50, -650)
+position = Vector2(264, -698)
 rotation = 2.3562
 
 [node name="Wall9" parent="." instance=ExtResource("9_6wx8f")]

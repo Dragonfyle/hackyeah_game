@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://ctxq1ivedcasm"]
+[gd_scene load_steps=19 format=4 uid="uid://bcsjgy3lal3dx"]
 
 [ext_resource type="Script" path="res://scripts/level_2.gd" id="1_etyyu"]
 [ext_resource type="Shader" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
-[ext_resource type="Texture2D" uid="uid://dn6u7q31pbajq" path="res://assets/tileset.png" id="2_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://bwks8eirfw7qs" path="res://assets/tileset.png" id="2_fxo6y"]
 [ext_resource type="PackedScene" path="res://scenes/bg_music.tscn" id="3_freo2"]
-[ext_resource type="Texture2D" uid="uid://bvcwfn3by7qkq" path="res://assets/bg.png" id="3_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://btea0t3xdcjiy" path="res://assets/bg.png" id="3_fxo6y"]
 [ext_resource type="PackedScene" uid="uid://13mlclpuwn5j" path="res://scenes/movable.tscn" id="3_grs8q"]
 [ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
@@ -626,8 +626,8 @@ position = Vector2(-800, -500)
 rotation = 1.5708
 
 [node name="Wall6" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(300, -1000)
-rotation = 2.3562
+position = Vector2(-960, -882.0001)
+rotation = 4.4505897
 
 [node name="wall_triangle" parent="." instance=ExtResource("13_8ie3e")]
 position = Vector2(-600, -750)
@@ -642,7 +642,7 @@ position = Vector2(-300, -300)
 rotation = -1.5708
 
 [node name="Wall9" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(0, -1100)
+position = Vector2(-64, -994)
 rotation = 2.0944
 
 [editable path="Wall"]

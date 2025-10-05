@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://cqnpila162qny"]
+[gd_scene load_steps=19 format=4 uid="uid://begf76jrmwnnq"]
 
 [ext_resource type="Script" path="res://scripts/level_6.gd" id="1_etyyu"]
 [ext_resource type="Shader" path="res://scenes/demo_level.gdshader" id="2_2vmhc"]
-[ext_resource type="Texture2D" uid="uid://dn6u7q31pbajq" path="res://assets/tileset.png" id="2_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://bwks8eirfw7qs" path="res://assets/tileset.png" id="2_fxo6y"]
 [ext_resource type="PackedScene" path="res://scenes/bg_music.tscn" id="3_freo2"]
-[ext_resource type="Texture2D" uid="uid://bvcwfn3by7qkq" path="res://assets/bg.png" id="3_fxo6y"]
+[ext_resource type="Texture2D" uid="uid://btea0t3xdcjiy" path="res://assets/bg.png" id="3_fxo6y"]
 [ext_resource type="PackedScene" uid="uid://13mlclpuwn5j" path="res://scenes/movable.tscn" id="3_grs8q"]
 [ext_resource type="PackedScene" uid="uid://dgb5b72kdw4l6" path="res://scenes/player.tscn" id="5_0bg5e"]
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
@@ -594,8 +594,8 @@ texture = ExtResource("3_fxo6y")
 position = Vector2(-1014, -299)
 
 [node name="Wall" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(300, -300)
-rotation = -0.7854
+position = Vector2(72, -314)
+rotation = -1.5707964
 collision_layer = 3
 
 [node name="Wall2" parent="." instance=ExtResource("9_6wx8f")]
@@ -604,8 +604,8 @@ rotation = 1.5708
 collision_layer = 3
 
 [node name="Wall3" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(100, -750)
-rotation = 0.5236
+position = Vector2(136, -538)
+rotation = 1.3089969
 collision_layer = 3
 
 [node name="Wall4" parent="." instance=ExtResource("10_r34ug")]
@@ -622,27 +622,24 @@ collision_layer = 3
 [node name="GameUI" parent="." instance=ExtResource("12_game_ui")]
 
 [node name="Wall5" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(650, -950)
+position = Vector2(464, -618)
 rotation = 2.0944
 
 [node name="Wall6" parent="." instance=ExtResource("8_freo2")]
 position = Vector2(-850, -650)
-rotation = 0.0
 
 [node name="wall_triangle" parent="." instance=ExtResource("13_8ie3e")]
-position = Vector2(500, -550)
+position = Vector2(344, -874)
 rotation = 1.5708
 
 [node name="Wall7" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(-200, -1100)
+position = Vector2(-320, -970)
 rotation = -0.5236
 
 [node name="Wall8" parent="." instance=ExtResource("9_6wx8f")]
-position = Vector2(450, -400)
+position = Vector2(-1016, -1018)
 rotation = 1.0472
 
 [node name="Wall9" parent="." instance=ExtResource("9_6wx8f")]
 position = Vector2(-500, -350)
 rotation = 2.3562
-
-[editable path="Wall"]
