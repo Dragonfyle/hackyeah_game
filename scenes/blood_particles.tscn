@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5m552e8i42ge"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_particle"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_blood_color"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.5, 0, 1, 1, 0.3, 0, 0.8, 0.8, 0.2, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_circle"]
+gradient = SubResource("Gradient_blood_color")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_blood"]
+gradient = SubResource("Gradient_blood_color")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_blood"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 400, 0)
+scale_min = 8.0
+scale_max = 12.0
+color = Color(1, 0.5, 0, 1)
+color_ramp = SubResource("GradientTexture1D_blood")
+
+[node name="BloodParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_particle")
+amount = 30
+texture = SubResource("GradientTexture2D_circle")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+randomness = 0.3
+visibility_rect = Rect2(-200, -200, 400, 400)
+process_material = SubResource("ParticleProcessMaterial_blood")
