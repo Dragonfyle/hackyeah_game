@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://nif0pjsjjpw3"]
+[gd_scene load_steps=6 format=3 uid="uid://nif0pjsjjpw3"]
 
 [ext_resource type="Script" uid="uid://beecvnyi2x66u" path="res://scripts/movable.gd" id="1_m2iqe"]
 [ext_resource type="Shader" path="res://scenes/movable.gdshader" id="2_4mg2c"]
 [ext_resource type="Texture2D" uid="uid://cife2wtyysovb" path="res://assets/sperm_cell.png" id="2_fs5cj"]
-[ext_resource type="AudioStream" uid="uid://tnleii2a6iei" path="res://assets/splash_sound.mp3" id="3_8fq6o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fq6o"]
 radius = 2.2360678
@@ -31,6 +30,3 @@ material = SubResource("ShaderMaterial_aiadq")
 position = Vector2(-1.000001, -4.7683716e-07)
 scale = Vector2(0.16216217, 0.17391302)
 texture = ExtResource("2_fs5cj")
-
-[node name="SplashSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_8fq6o")

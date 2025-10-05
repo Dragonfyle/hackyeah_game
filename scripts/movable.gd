@@ -41,8 +41,10 @@ func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		split_projectile()
 	if body is CharacterBody2D:
-		#call_deferred("_deferred_despawn")
-		$SplashSound.play()
+		# here emit signal to play sound
+		emit_signal("collision", body, body.global_position, Vector2.ZERO)
+		call_deferred("_deferred_despawn")
+
 
 
 func split_projectile() -> void:
