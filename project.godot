@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 MovableManager="*res://scripts/movable_manager.gd"
+ScoreManager="*res://scripts/score_manager.gd"
 
 [display]
 

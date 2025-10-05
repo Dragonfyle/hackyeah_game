@@ -16,6 +16,9 @@ func _ready() -> void:
 	# Start with movables slowed down since player starts stopped
 	MovableManager.apply_slowdown_all()
 
+	# Initialize score system - player starts idle
+	ScoreManager.set_moving(false)
+
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
@@ -83,11 +86,13 @@ func _input(event: InputEvent) -> void:
 
 func _on_player_stopped() -> void:
 	MovableManager.apply_slowdown_all()
+	ScoreManager.set_moving(false)
 
 func _on_player_started() -> void:
 	MovableManager.remove_slowdown_all()
+	ScoreManager.set_moving(true)
 
 func _on_player_death() -> void:
 	var game_over = get_node("GameOver")
 	if game_over:
-		game_over.show_game_over(0)
+		game_over.show_game_over(ScoreManager.get_score())
