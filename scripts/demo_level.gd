@@ -44,6 +44,11 @@ var types_of_projectiles: Array[Dictionary] = [
 		"speed": 600.0,
 		"scene": preload("res://scenes/spawning_movable.tscn"),
 	},
+	{
+		"texture": preload("res://assets/sperm_cell.png"),
+		"speed": 500.0,
+		"scene": preload("res://scenes/orbiting_movable.tscn"),
+	},
 ]
 
 ## --- Node References ---
