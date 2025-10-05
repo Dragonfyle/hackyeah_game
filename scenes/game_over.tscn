@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cd8v6h3ymxk3u"]
+[gd_scene load_steps=3 format=3 uid="uid://crb1ji5lg8y4p"]
 
-[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_game_over"]
+[ext_resource type="Script" uid="uid://dpmmfymxryu3c" path="res://scripts/game_over.gd" id="1_game_over"]
+[ext_resource type="Texture2D" uid="uid://c0ef5rmc7m7rd" path="res://assets/game_over_text.png" id="2_wqhvx"]
 
 [node name="GameOver" type="CanvasLayer"]
 script = ExtResource("1_game_over")
@@ -23,11 +24,13 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="GameOverLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
-text = "GAME OVER"
-horizontal_alignment = 1
+theme_override_constants/margin_bottom = 100
+
+[node name="GameOver" type="TextureRect" parent="CenterContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_wqhvx")
 
 [node name="ScoreLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
