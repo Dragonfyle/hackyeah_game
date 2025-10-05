@@ -80,8 +80,8 @@ func _process(delta: float) -> void:
 
 ## --- Signal Handlers ---
 func _on_spawn_timer_timeout() -> void:
-	# 1. Decide how many movables to spawn in this wave (from 1 to 4).
-	var spawn_count = randi_range(1, 4)
+	# 1. Decide how many movables to spawn in this wave (from 1 to 3).
+	var spawn_count = randi_range(1, 3)
 	
 	# 2. Loop that many times to spawn each movable.
 	for i in range(spawn_count):
