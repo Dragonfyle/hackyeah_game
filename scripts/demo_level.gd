@@ -122,6 +122,7 @@ func _on_player_stopped() -> void:
 
 func _on_player_started() -> void:
 	MovableManager.remove_slowdown_all()
+	ScoreManager.set_moving(true)
 
 ## --- Custom Functions ---
 func spawn_projectile(spawn_pos: Vector2, direction: Vector2, show_marker: bool = true) -> void:
@@ -174,7 +175,6 @@ func find_valid_spawn_position() -> Vector2:
 		if result.is_empty():
 			return random_pos
 	return Vector2.INF
-	ScoreManager.set_moving(true)
 
 func _on_player_death() -> void:
 	var game_over = get_node("GameOver")
