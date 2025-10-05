@@ -9,6 +9,9 @@ uniform float smoothness : hint_range(0.01, 0.3) = 0.1;
 uniform float color_separation : hint_range(0.0, 1.0) = 0.3;
 uniform vec2 texture_size = vec2(1024.0, 768.0);
 uniform vec3 warm_tint : source_color = vec3(1.0, 0.9, 0.7);
+uniform float shimmer_speed : hint_range(0.1, 5.0) = 1.5;
+uniform float shimmer_intensity : hint_range(0.0, 2.0) = 0.8;
+uniform float color_boost : hint_range(1.0, 3.0) = 1.8;
 
 // Halftone pattern function from https://www.shadertoy.com/view/4dSSRG
 float vx(float x, float y, float a)
@@ -69,12 +72,29 @@ void fragment() {
 
         vec3 halftone_color = vec3(red, green, blue) * warm_tint;
 
-        // Apply grayscale
+        // Create grayscale version
         float gray = dot(halftone_color, vec3(0.299, 0.587, 0.114));
-        // Tone down bright values to reduce contrast
         gray = gray * 0.7 + 0.1;
         vec3 grayscale = vec3(gray);
 
-        COLOR = vec4(grayscale, tex_color.a);
+        // Detect bright areas in the original texture
+        float brightness_mask = dot(tex_color.rgb, vec3(0.299, 0.587, 0.114));
+        brightness_mask = smoothstep(0.3, 0.6, brightness_mask);
+
+        // Create shimmer effect that oscillates between 0 and 1
+        float shimmer = sin(TIME * shimmer_speed + UV.x * 10.0 + UV.y * 10.0) * 0.5 + 0.5;
+        shimmer = pow(shimmer, 2.0) * shimmer_intensity;
+
+        // Apply shimmer only to bright areas
+        shimmer *= brightness_mask;
+
+        // Boost the original bright colors
+        vec3 boosted_colors = halftone_color * color_boost;
+        boosted_colors = clamp(boosted_colors, 0.0, 1.0);
+
+        // Mix between grayscale and bright colors based on shimmer
+        vec3 final_color = mix(grayscale, boosted_colors, shimmer);
+
+        COLOR = vec4(final_color, tex_color.a);
     }
 }
