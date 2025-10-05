@@ -41,7 +41,8 @@ func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		split_projectile()
 	if body is CharacterBody2D:
-		$AudioStreamPlayer2D.play()
+		#call_deferred("_deferred_despawn")
+		$SplashSound.play()
 
 
 func split_projectile() -> void:

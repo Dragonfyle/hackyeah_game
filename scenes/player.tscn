@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4rnmujv2driw"]
+[gd_scene load_steps=6 format=3 uid="uid://dgb5b72kdw4l6"]
 
 [ext_resource type="Script" uid="uid://dsxe37ha70b37" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Shader" path="res://scenes/player.gdshader" id="2_qhqgy"]
+[ext_resource type="Shader" uid="uid://chbk04qsd68hk" path="res://scenes/player.gdshader" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://dgaacgsatppa3" path="res://assets/egg_cell.png" id="3_qhqgy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dqkch"]
