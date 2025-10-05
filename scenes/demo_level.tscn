@@ -602,7 +602,8 @@ position = Vector2(-330, -574)
 collision_layer = 3
 
 [node name="Wall3" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(19, -471)
+position = Vector2(-704, -490)
+rotation = -0.7853982
 collision_layer = 3
 
 [node name="Wall4" parent="." instance=ExtResource("10_r34ug")]
@@ -621,10 +622,11 @@ collision_layer = 3
 position = Vector2(-976, -674)
 
 [node name="Wall6" parent="." instance=ExtResource("8_freo2")]
-position = Vector2(-658.4487, -973.09973)
+position = Vector2(-672, -1034)
+rotation = 1.0471976
 
-[node name="wall_triangle" parent="Wall6" instance=ExtResource("13_8ie3e")]
-position = Vector2(522.4487, 147.09973)
+[node name="wall_triangle" parent="." instance=ExtResource("13_8ie3e")]
+position = Vector2(-136, -826)
 rotation = -2.1554816
 
 [editable path="Wall"]
