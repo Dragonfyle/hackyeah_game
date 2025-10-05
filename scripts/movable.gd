@@ -85,7 +85,7 @@ func _deferred_despawn() -> void:
 
 func apply_slowdown() -> void:
 	_stored_velocity = linear_velocity
-	linear_velocity = linear_velocity * 0.02
+	linear_velocity = linear_velocity * 0.07
 
 func remove_slowdown() -> void:
 	linear_velocity = _stored_velocity
