@@ -21,6 +21,9 @@ signal health_depleted
 @export var health_regen_rate: float = 5.0   # punkty życia odzyskiwane na sekundę gdy stoi
 @export var health_display_speed: float = 2.0  # szybkość animacji wskaźnika życia
 
+# Add this with your other @export variables
+@export var wall_bounce_strength: float = 400.0 # How hard you bounce off walls
+
 var _target_health_display: float = 0.0  # docelowy poziom wskaźnika
 var _current_health_display: float = 0.0  # aktualny poziom wskaźnika
 
@@ -37,7 +40,6 @@ func _ready() -> void:
 	_target_health_display = 0.0  # 100% życia = 0.0 wskaźnika
 	_current_health_display = 0.0
 	update_health_display()
-
 func _physics_process(delta: float) -> void:
 	# Read raw input (left/right/up/down). Uses Godot's default ui_* actions.
 	_desired_input = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -55,25 +57,21 @@ func _physics_process(delta: float) -> void:
 		# accelerate toward desired velocity
 		# if we just started moving (was stopped last frame), ensure a minimal step
 		if not _was_moving and velocity.length() < 1.0 and min_step_pixels > 0.0:
-			# required speed to move min_step_pixels this frame: v = d / dt
 			var needed_speed: float = min_step_pixels / max(delta, 1e-6)
 			if needed_speed > desired_velocity.length():
-				# boost in direction of desired_velocity
 				if desired_velocity.length() > 0.0:
 					var boost_dir: Vector2 = desired_velocity.normalized()
 					velocity = boost_dir * needed_speed
 				else:
-					# fallback: small step in previous velocity direction
 					velocity = Vector2.RIGHT * needed_speed
 			else:
 				velocity = velocity.move_toward(desired_velocity, accel * delta)
 		else:
 			velocity = velocity.move_toward(desired_velocity, accel * delta)
 	else:
-		# no input -> brake over distance using physics formula to determine needed deceleration
+		# no input -> brake over distance
 		if brake_distance > 0.0 and velocity.length() > 0.01:
 			var v_len: float = velocity.length()
-			# deceleration needed to stop within brake_distance: a = v^2 / (2 * d)
 			var decel_needed: float = (v_len * v_len) / (2.0 * brake_distance)
 			var decel_to_apply: float = max(decel, decel_needed)
 			velocity = velocity.move_toward(Vector2.ZERO, decel_to_apply * delta)
@@ -81,42 +79,42 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, decel * delta)
 
 	if velocity.length() > 1.0:
-		# rotate to face movement direction (smooth)
-		var target := velocity.angle()           # angle in radians
+		var target := velocity.angle()
 		rotation = lerp_angle(rotation, target, clamp(rotation_speed * delta, 0.0, 1.0))
 
-	# If spin mode is enabled, override and spin around own axis
 	if spin_in_place:
 		rotation += spin_speed * delta
 
-	# Move the character using the resolved velocity
-	# CharacterBody2D.move_and_slide() uses the built-in `velocity` property internally
 	move_and_slide()
 
-	# Check for collisions with RigidBody2D
+	# --- MODIFIED COLLISION LOOP ---
 	var current_collided_bodies: Array[RigidBody2D] = []
 	for i in get_slide_collision_count():
 		var collision := get_slide_collision(i)
 		var collider := collision.get_collider()
+		
+		# NEW: Check if the collision is with a StaticBody2D (a wall)
+		if collider is StaticBody2D:
+			# Get the direction pointing away from the wall
+			var bounce_direction = collision.get_normal()
+			# Apply the bounce. This will override player input for the next frame.
+			velocity = bounce_direction * wall_bounce_strength
+
+		# Existing logic for taking damage from Movables
 		if collider is RigidBody2D:
 			current_collided_bodies.append(collider)
-			# Sprawdź czy to nowa kolizja z movable obiektem
 			if collider is Movable and not _last_collided_bodies.has(collider):
-				# Zadaj obrażenia za kolizję z movable
 				take_damage(collision_damage)
 
 	_last_collided_bodies = current_collided_bodies
-
+	
 	# Detect movement state transitions and emit signals
 	if is_moving_now and not _was_moving:
 		movement_started.emit()
 	elif not is_moving_now and _was_moving:
 		movement_stopped.emit()
 
-	# update was_moving flag for next frame
 	_was_moving = is_moving_now
-
-	# Animate health display
 	animate_health_display(delta)
 
 func change_health(amount: float) -> void:
