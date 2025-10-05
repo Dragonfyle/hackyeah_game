@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://uuyrgijiy03b" path="res://scenes/wall1.tscn" id="8_freo2"]
 [ext_resource type="PackedScene" uid="uid://c7bds2o1i4ho4" path="res://scenes/wall2.tscn" id="9_6wx8f"]
 [ext_resource type="PackedScene" uid="uid://duk6jtds2icjt" path="res://scenes/wall.tscn" id="10_r34ug"]
+[ext_resource type="PackedScene" uid="uid://cd8v6h3ymxk3u" path="res://scenes/game_over.tscn" id="11_game_over"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vmhc"]
 shader = ExtResource("2_2vmhc")
@@ -615,5 +616,7 @@ position = Vector2(19, -471)
 position = Vector2(-91, -982)
 
 [node name="bg_music" parent="." instance=ExtResource("3_freo2")]
+
+[node name="GameOver" parent="." instance=ExtResource("11_game_over")]
 
 [editable path="Wall"]

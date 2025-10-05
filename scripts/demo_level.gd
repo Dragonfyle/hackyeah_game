@@ -11,6 +11,7 @@ func _ready() -> void:
 	if player:
 		player.movement_stopped.connect(_on_player_stopped)
 		player.movement_started.connect(_on_player_started)
+		player.health_depleted.connect(_on_player_death)
 
 	# Start with movables slowed down since player starts stopped
 	MovableManager.apply_slowdown_all()
@@ -85,3 +86,8 @@ func _on_player_stopped() -> void:
 
 func _on_player_started() -> void:
 	MovableManager.remove_slowdown_all()
+
+func _on_player_death() -> void:
+	var game_over = get_node("GameOver")
+	if game_over:
+		game_over.show_game_over(0)
