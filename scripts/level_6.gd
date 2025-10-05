@@ -31,17 +31,17 @@ const WALL_MARGIN = 100
 var types_of_projectiles: Array[Dictionary] = [
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 700.0,
+		"speed": 1000.0,
 		"scene": preload("res://scenes/movable.tscn"),
 	},
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 500.0,
+		"speed": 700.0,
 		"scene": preload("res://scenes/explosive_movable.tscn"),
 	},
 	{
 		"texture": preload("res://assets/sperm_cell.png"),
-		"speed": 400.0,
+		"speed": 600.0,
 		"scene": preload("res://scenes/spawning_movable.tscn"),
 	},
 	{
@@ -58,7 +58,7 @@ var types_of_projectiles: Array[Dictionary] = [
 ## --- Private Variables ---
 var elapsed_time: float = 0.0
 const MAX_ATTEMPTS = 100
-var current_level: int = 1
+var current_level: int = 6
 const SCORE_PER_LEVEL: int = 1000
 const MAX_LEVEL: int = 6
 
@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 	# Keep track of the total elapsed time to control spawn speed.
 	elapsed_time += delta
 
-	# Check if player should transition to next level
+	# Check if player should transition to next level (level 6 is max)
 	var target_level = min(int(ScoreManager.get_score() / SCORE_PER_LEVEL) + 1, MAX_LEVEL)
 	if target_level > current_level:
 		_transition_to_next_level(target_level)
@@ -196,6 +196,6 @@ func _transition_to_next_level(target_level: int) -> void:
 	# Keep the current score and time when transitioning
 	# (ScoreManager is an autoload, so score will persist)
 
-	# Load and change to the next level
+	# Load and change to the next level (level 6 is max, so this might not trigger)
 	var level_path = "res://scenes/level_%d.tscn" % target_level
 	get_tree().change_scene_to_file(level_path)

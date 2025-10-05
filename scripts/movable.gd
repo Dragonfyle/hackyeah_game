@@ -54,7 +54,7 @@ func split_projectile() -> void:
 		call_deferred("_deferred_despawn")
 		return
 
-	var new_scale = scale_factor * 0.75
+	var new_scale = scale_factor * 0.5
 	# Pobranie tekstury z aktualnego sprite'a
 	var texture_resource = sprite.texture
 	

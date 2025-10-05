@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	if is_moving:
 		current_score += moving_score_rate * delta
 	else:
-		current_score += idle_score_rate * delta
+		current_score -= idle_score_rate * delta
 
 	# Track game time
 	current_time += delta
