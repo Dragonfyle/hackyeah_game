@@ -23,7 +23,6 @@ func setup(texture_resource: Texture2D, new_speed: float, new_velocity: Vector2,
 	if new_velocity.length() > 0.0:
 		$Sprite2D.rotation = new_velocity.angle() + 135
 	# Debug log
-	print("Movable.setup: Rotating sprite to angle: ", new_velocity.angle(), " and ", $Sprite2D.rotation)
 
 func _ready() -> void:
 	if projectile_velocity != Vector2.ZERO:
@@ -41,10 +40,12 @@ func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		split_projectile()
 	if body is CharacterBody2D:
-		# here emit signal to play sound
 		emit_signal("collision", body, body.global_position, Vector2.ZERO)
 		call_deferred("_deferred_despawn")
 
+		body.take_damage(10)
+		if body.get_health_percentage() <= 0.0:
+			body.health_depleted.emit()
 
 
 func split_projectile() -> void:

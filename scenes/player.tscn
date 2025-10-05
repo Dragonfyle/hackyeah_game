@@ -10,6 +10,7 @@ shader_parameter/burst_progress = 0.082000003895
 shader_parameter/spread_strength = 0.0
 shader_parameter/distortion_strength = 0.1970000093575
 shader_parameter/fade_start = 1.0
+shader_parameter/health_fill = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
 radius = 21.0

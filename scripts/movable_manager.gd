@@ -54,9 +54,11 @@ func get_active_count() -> int:
 func apply_slowdown_all() -> void:
 	is_paused = true
 	for movable in active_movables:
-		movable.apply_slowdown()
+		if is_instance_valid(movable):
+			movable.apply_slowdown()
 
 func remove_slowdown_all() -> void:
 	is_paused = false
 	for movable in active_movables:
-		movable.remove_slowdown()
+		if is_instance_valid(movable):
+			movable.remove_slowdown()
